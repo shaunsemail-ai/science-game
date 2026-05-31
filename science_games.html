@@ -606,6 +606,7 @@ const physicsQuestions=[
 ];
 
 let pacScore=0,pacLives=3,pacCaught=0,pacPowered=false,pacPowerTimer=0;
+let powerPellets=[];
 let pacX,pacY,pacDir,pacNextDir,pacMouthAngle,pacMouthDir;
 let dots=[],ghosts=[],pacRunning=false;
 let pendingGhost=null,pacQTimeout=null;
@@ -630,6 +631,13 @@ function initPacman(){
   dots=[];
   const dsx=30,dsy=30;
   for(let x=dsx;x<W-20;x+=dsx)for(let y=dsy;y<H-20;y+=dsy)dots.push({x,y,eaten:false});
+  // Power pellets — 4 corners, rare
+  powerPellets=[
+    {x:W*.12,y:H*.15,eaten:false},
+    {x:W*.88,y:H*.15,eaten:false},
+    {x:W*.12,y:H*.85,eaten:false},
+    {x:W*.88,y:H*.85,eaten:false}
+  ];
   // Create ghosts
   ghosts=ghostColors.map((color,i)=>({
     x:W*.2+i*(W*.2),y:H*.3,
@@ -714,6 +722,15 @@ function pacLoop(){
   dots.forEach(d=>{
     if(!d.eaten&&Math.hypot(d.x-pacX,d.y-pacY)<14){d.eaten=true;pacScore+=10;document.getElementById('pac-score-val').textContent=pacScore;}
   });
+  // Eat power pellets
+  powerPellets.forEach(p=>{
+    if(!p.eaten&&Math.hypot(p.x-pacX,p.y-pacY)<18){
+      p.eaten=true;
+      pacPowered=true;pacPowerTimer=220;
+      ghosts.forEach(g=>{if(!g.eaten){g.scared=true;g.scaredTimer=220;}});
+      document.getElementById('pac-power-badge').style.display='';
+    }
+  });
   // Move ghosts
   ghosts.forEach(g=>{
     if(g.eaten){
@@ -751,6 +768,15 @@ function pacLoop(){
   ctx.shadowColor='rgba(0,245,255,.3)';ctx.shadowBlur=4;
   dots.forEach(d=>{if(!d.eaten){ctx.fillStyle='rgba(0,245,255,.5)';ctx.beginPath();ctx.arc(d.x,d.y,3,0,Math.PI*2);ctx.fill();}});
   ctx.shadowBlur=0;
+  // Power pellets — large pulsing dots
+  const pulse=0.6+0.4*Math.sin(Date.now()/200);
+  powerPellets.forEach(p=>{
+    if(p.eaten)return;
+    ctx.shadowColor='rgba(255,180,0,.9)';ctx.shadowBlur=16*pulse;
+    ctx.fillStyle=`rgba(255,200,0,${0.8+0.2*pulse})`;
+    ctx.beginPath();ctx.arc(p.x,p.y,7+2*pulse,0,Math.PI*2);ctx.fill();
+    ctx.shadowBlur=0;
+  });
   // Ghosts
   ghosts.forEach(g=>{
     if(g.eaten)return;
