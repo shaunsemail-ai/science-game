@@ -176,6 +176,55 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellips
 .confetti-piece{position:fixed;width:10px;height:10px;top:-20px;border-radius:2px;animation:fall linear forwards;pointer-events:none;z-index:9999}
 @keyframes fall{to{transform:translateY(110vh) rotate(720deg);opacity:0}}
 
+/* QUESTION TRACKER */
+.tracker-table{width:100%;border-collapse:collapse}
+.tracker-table th{font-family:'Orbitron',sans-serif;font-size:.6rem;letter-spacing:1.5px;color:var(--text2);padding:9px 10px;text-align:left;border-bottom:1px solid var(--border);cursor:pointer;user-select:none;white-space:nowrap;transition:color .15s}
+.tracker-table th:hover{color:var(--cyan)}
+.tracker-table th .sort-arrow{display:inline-block;margin-left:4px;opacity:.35;font-size:.7rem}
+.tracker-table th.th-sorted .sort-arrow{opacity:1;color:var(--cyan)}
+.tracker-table td{padding:8px 10px;border-bottom:1px solid var(--border);font-size:.82rem;vertical-align:middle}
+.tracker-table tr.pass-high td:first-child{border-left:3px solid var(--green)}
+.tracker-table tr.pass-mid td:first-child{border-left:3px solid var(--orange2)}
+.tracker-table tr.pass-low td:first-child{border-left:3px solid var(--red)}
+.tracker-table tr.pass-none td:first-child{border-left:3px solid rgba(255,255,255,.08)}
+.tracker-stat{background:var(--bg3);border:1px solid var(--border);border-radius:12px;padding:14px 18px;text-align:center}
+.tracker-stat-val{font-family:'Orbitron',sans-serif;font-size:1.5rem;font-weight:700}
+.tracker-stat-label{font-size:.62rem;color:var(--text2);letter-spacing:1px;text-transform:uppercase;margin-top:3px}
+.q-text-cell{max-width:260px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.topic-pill{font-size:.62rem;padding:2px 8px;border-radius:6px;font-weight:700;display:inline-block;white-space:nowrap}
+.tracker-filter{font-size:.75rem!important;padding:6px 12px!important}
+
+/* ASTEROIDS */
+#ast-canvas{display:block;border-radius:12px;border:2px solid var(--border);background:#000;max-width:100%}
+.ast-ui{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;flex-wrap:wrap;gap:10px}
+.ast-q-bar{background:var(--bg3);border:1.5px solid var(--purple);border-radius:14px;padding:14px 20px;margin-bottom:12px;font-size:1rem;font-weight:700;line-height:1.5;text-align:center}
+.ast-btn{background:var(--bg3);border:2px solid var(--border);border-radius:12px;color:var(--purple);font-size:1.5rem;width:64px;height:64px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .1s;-webkit-tap-highlight-color:transparent;touch-action:manipulation}
+.ast-btn:active{background:rgba(180,79,255,.2);border-color:var(--purple);transform:scale(.92)}
+.ast-fire-btn{background:rgba(180,79,255,.15);border:2px solid var(--purple);border-radius:12px;color:var(--purple);font-size:.85rem;font-weight:800;width:80px;height:64px;cursor:pointer;display:flex;align-items:center;justify-content:center;-webkit-tap-highlight-color:transparent;touch-action:manipulation;letter-spacing:1px}
+.ast-fire-btn:active{background:rgba(180,79,255,.4);transform:scale(.92)}
+#ast-controls{display:none;margin-top:10px}
+@media(pointer:coarse){#ast-controls{display:block}}
+@media(max-width:600px){#ast-controls{display:block}}
+.game-card.c5:hover{border-color:var(--red);box-shadow:0 0 25px rgba(255,34,68,.3)}
+.c5 .card-title{color:var(--red)}
+
+/* FORCE DIAGRAM BUILDER */
+.fbd-scenario-emoji{font-size:2.8rem;margin-bottom:8px}
+.fbd-scenario-title{font-family:'Orbitron',sans-serif;font-size:.85rem;color:var(--orange);margin-bottom:6px;font-weight:700}
+.fbd-scenario-desc{color:var(--text2);font-size:.88rem;max-width:440px;margin:0 auto;line-height:1.6}
+.fbd-arena{background:var(--bg3);border:1px solid var(--border);border-radius:20px;padding:24px;margin-bottom:16px}
+.fbd-grid{display:grid;grid-template-areas:". up ." "left obj right" ". down .";grid-template-columns:110px 84px 110px;grid-template-rows:60px 84px 60px;gap:6px;justify-content:center;align-items:center;margin:0 auto 20px;width:fit-content}
+.fbd-object{width:84px;height:84px;background:var(--bg2);border:2px solid var(--border);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:2rem}
+.fbd-arrow{width:104px;height:48px;background:var(--bg2);border:2px dashed rgba(255,107,0,.25);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:.68rem;color:rgba(255,107,0,.3);transition:all .2s;cursor:pointer;text-align:center;padding:2px 5px;user-select:none}
+.fbd-arrow:hover{border-color:rgba(255,107,0,.5)}
+.fbd-arrow.fbd-filled{border-color:var(--orange);border-style:solid;background:rgba(255,107,0,.1);color:var(--orange);font-weight:700;font-size:.72rem}
+.fbd-arrow.fbd-correct{border-color:var(--green);border-style:solid;background:rgba(57,255,20,.1);color:var(--green)}
+.fbd-arrow.fbd-wrong{border-color:var(--red);border-style:solid;background:rgba(255,34,68,.1);color:var(--red)}
+.fbd-label{background:var(--bg2);border:1.5px solid var(--orange);color:var(--orange);padding:8px 14px;border-radius:8px;cursor:pointer;font-weight:700;font-size:.8rem;user-select:none;transition:all .2s;-webkit-tap-highlight-color:transparent}
+.fbd-label:hover{background:rgba(255,107,0,.1)}
+.fbd-label.fbd-used{opacity:.3;pointer-events:none}
+.fbd-label.fbd-selected{background:rgba(255,107,0,.25);box-shadow:0 0 14px rgba(255,107,0,.5);transform:scale(1.06)}
+
 @media(max-width:580px){
   .choices-grid,.q-modal-choices{grid-template-columns:1fr}
   .em-slot{width:72px;height:54px;font-size:.58rem}
@@ -242,7 +291,7 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellips
 <div id="hub" class="screen active">
   <div style="min-height:100vh;padding:40px 20px">
     <div class="hub-title">PHYSICS GAME HUB</div>
-    <div class="hub-sub">Waves &middot; Sound &middot; Momentum</div>
+    <div class="hub-sub">Complete Physics 7 Comp Review</div>
     <div class="games-grid">
       <div class="game-card c1" onclick="showScreen('pacman-game')">
         <span class="card-icon">👾</span>
@@ -269,9 +318,20 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellips
         <div class="card-title">Lightning Round</div>
         <div class="card-desc">Rapid-fire questions across both units. Build streaks for multipliers. Every wrong answer comes with a mini-lesson.</div>
       </div>
+      <div class="game-card c5" onclick="showScreen('asteroids-game')">
+        <span class="card-icon">🚀</span>
+        <div class="card-title">Physics Asteroids</div>
+        <div class="card-desc">Rotate your ship and shoot the CORRECT answer asteroid. Wrong shots cost lives. Every miss comes with a full explanation.</div>
+      </div>
+      <div class="game-card c2" onclick="showScreen('fbd-game')">
+        <span class="card-icon">⚖️</span>
+        <div class="card-title">Force Diagram Builder</div>
+        <div class="card-desc">Place force arrows on 8 real-world scenarios. Identify which forces act, which direction they point, then calculate the net force.</div>
+      </div>
     </div>
-    <div style="text-align:center;margin-top:32px">
+    <div style="text-align:center;margin-top:32px;display:flex;gap:14px;justify-content:center;flex-wrap:wrap">
       <button class="btn btn-outline" onclick="showScreen('leaderboard-screen')">🏆 High Score Board</button>
+      <button class="btn btn-outline" style="border-color:var(--orange);color:var(--orange)" onclick="renderTracker('all');showScreen('tracker-screen')">📊 Question Tracker</button>
     </div>
   </div>
 </div>
@@ -289,6 +349,8 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellips
         <button class="btn btn-outline lb-filter-btn" data-game="Pac-Man" onclick="renderLB('Pac-Man',this)">Pac-Man</button>
         <button class="btn btn-outline lb-filter-btn" data-game="Formula" onclick="renderLB('Formula',this)">Formula Frenzy</button>
         <button class="btn btn-outline lb-filter-btn" data-game="Lightning" onclick="renderLB('Lightning',this)">Lightning Round</button>
+        <button class="btn btn-outline lb-filter-btn" data-game="Asteroids" onclick="renderLB('Asteroids',this)">Asteroids</button>
+        <button class="btn btn-outline lb-filter-btn" data-game="FBD Builder" onclick="renderLB('FBD Builder',this)">Force Diagram</button>
       </div>
       <div style="background:var(--bg3);border:1px solid var(--border);border-radius:20px;overflow:hidden">
         <table class="lb-table" style="width:100%">
@@ -299,6 +361,163 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellips
       </div>
       <div style="text-align:center;margin-top:20px">
         <button class="btn btn-outline" onclick="clearLB()">Clear All Scores</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== QUESTION TRACKER ===== -->
+<div id="tracker-screen" class="screen">
+  <div style="min-height:100vh;padding:30px 20px">
+    <div style="display:flex;align-items:center;gap:14px;margin-bottom:24px;max-width:1020px;margin-left:auto;margin-right:auto;flex-wrap:wrap">
+      <button class="back-btn" onclick="showScreen('hub')">← Hub</button>
+      <div style="font-family:'Orbitron',sans-serif;font-size:1.1rem;font-weight:700;color:var(--orange)">📊 QUESTION TRACKER</div>
+      <button class="btn btn-outline" style="margin-left:auto;font-size:.72rem;padding:7px 14px" onclick="clearTracker()">Reset Data</button>
+    </div>
+    <div style="max-width:1020px;margin:0 auto">
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;margin-bottom:22px" id="tracker-stats-row"></div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px">
+        <button class="btn btn-outline tracker-filter active-filter" data-f="all" onclick="renderTracker('all',this)">All</button>
+        <button class="btn btn-outline tracker-filter" data-f="pass" onclick="renderTracker('pass',this)" style="border-color:var(--green);color:var(--green)">Passing ✓</button>
+        <button class="btn btn-outline tracker-filter" data-f="fail" onclick="renderTracker('fail',this)" style="border-color:var(--red);color:var(--red)">Need Work ✗</button>
+        <button class="btn btn-outline tracker-filter" data-f="unseen" onclick="renderTracker('unseen',this)">Not Yet Seen</button>
+      </div>
+      <div style="background:var(--bg3);border:1px solid var(--border);border-radius:20px;overflow:hidden;overflow-x:auto">
+        <table class="tracker-table">
+          <thead>
+            <tr>
+              <th id="th-q" onclick="sortTracker('q')">Question <span class="sort-arrow">↕</span></th>
+              <th id="th-topic" onclick="sortTracker('topic')">Topic <span class="sort-arrow">↕</span></th>
+              <th id="th-game" onclick="sortTracker('game')">Game <span class="sort-arrow">↕</span></th>
+              <th id="th-attempts" onclick="sortTracker('attempts')" style="text-align:right">Attempts <span class="sort-arrow">↕</span></th>
+              <th id="th-correct" onclick="sortTracker('correct')" style="text-align:right">Correct <span class="sort-arrow">↕</span></th>
+              <th id="th-rate" onclick="sortTracker('rate')" style="text-align:right">Pass % <span class="sort-arrow">↕</span></th>
+            </tr>
+          </thead>
+          <tbody id="tracker-tbody"></tbody>
+        </table>
+        <div id="tracker-empty" style="text-align:center;padding:40px;color:var(--text2);display:none">No data yet — go play a game!</div>
+      </div>
+      <div style="margin-top:10px;color:var(--text2);font-size:.72rem;text-align:center">
+        <span style="color:var(--green)">●</span> ≥75%&nbsp;&nbsp;
+        <span style="color:var(--orange2)">●</span> 50–74%&nbsp;&nbsp;
+        <span style="color:var(--red)">●</span> &lt;50%&nbsp;&nbsp;
+        <span style="color:rgba(255,255,255,.15)">●</span> not yet seen
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== PHYSICS ASTEROIDS ===== -->
+<div id="asteroids-game" class="screen">
+  <div class="game-screen">
+    <div class="game-header">
+      <button class="back-btn" onclick="astStop();showScreen('hub')">← Hub</button>
+      <div class="game-title-bar" style="color:var(--purple)">PHYSICS ASTEROIDS</div>
+      <div class="score-badge" id="ast-score-badge">Ready</div>
+    </div>
+    <div class="game-content">
+      <div id="ast-intro" class="game-intro">
+        <div class="intro-icon">🚀</div>
+        <div class="intro-title" style="color:var(--purple)">Physics Asteroids</div>
+        <div class="intro-desc">A question appears above the canvas. Asteroids float in — each labeled with an answer choice.<br><br>
+          <strong style="color:var(--green)">Shoot the CORRECT answer!</strong><br>
+          <strong style="color:var(--red)">Hitting a WRONG answer = lose a life + explanation.</strong><br><br>
+          Rotate: ◄ ► &nbsp;·&nbsp; Thrust: ▲ &nbsp;·&nbsp; Fire: SPACE or tap canvas<br>
+          3 lives. Good luck!</div>
+        <button class="btn btn-purple" onclick="startAsteroids()">Launch!</button>
+      </div>
+      <div id="ast-play" style="display:none">
+        <div class="ast-ui">
+          <div class="lives-row" id="ast-lives-row"></div>
+          <div class="pacman-stat">Score: <span id="ast-score-val">0</span></div>
+          <div class="pacman-stat">Q: <span id="ast-q-num">0</span></div>
+        </div>
+        <div id="ast-q-bar" class="ast-q-bar">Loading...</div>
+        <canvas id="ast-canvas"></canvas>
+        <p style="text-align:center;color:var(--text2);font-size:.78rem;margin-top:8px">← → rotate &bull; ↑ thrust &bull; SPACE fire &bull; Shoot the <strong style="color:var(--green)">correct</strong> answer!</p>
+        <div id="ast-controls">
+          <div style="display:flex;gap:10px;justify-content:center;margin-top:10px">
+            <button class="ast-btn" id="ast-rot-left">◄</button>
+            <button class="ast-btn" id="ast-thrust">▲</button>
+            <button class="ast-btn" id="ast-rot-right">►</button>
+            <button class="ast-fire-btn" id="ast-fire">FIRE</button>
+          </div>
+          <p style="text-align:center;color:var(--text2);font-size:.72rem;margin-top:6px">Tap to control</p>
+        </div>
+      </div>
+      <div id="ast-result" style="display:none" class="result-screen">
+        <div class="result-title" style="color:var(--purple)">Game Over!</div>
+        <div class="result-score" id="ast-result-score" style="color:var(--purple)"></div>
+        <div class="result-detail" id="ast-result-detail"></div>
+        <div class="result-actions">
+          <button class="btn btn-outline" onclick="startAsteroids()">Play Again</button>
+          <button class="btn btn-purple" onclick="showScreen('hub')">Back to Hub</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== FORCE DIAGRAM BUILDER ===== -->
+<div id="fbd-game" class="screen">
+  <div class="game-screen">
+    <div class="game-header">
+      <button class="back-btn" onclick="showScreen('hub')">← Hub</button>
+      <div class="game-title-bar" style="color:var(--orange)">FORCE DIAGRAM BUILDER</div>
+      <div class="score-badge" id="fbd-progress">1/8</div>
+    </div>
+    <div class="game-content">
+      <div id="fbd-intro" class="game-intro">
+        <div class="intro-icon">⚖️</div>
+        <div class="intro-title" style="color:var(--orange)">Force Diagram Builder</div>
+        <div class="intro-desc">8 real-world scenarios. For each one, identify the forces acting on the object and place them in the right direction.<br><br>Tap a force label, then tap a direction slot to place it. After placing the forces correctly, answer a net force question!</div>
+        <button class="btn btn-orange" onclick="startFBD()">Start Building!</button>
+      </div>
+      <div id="fbd-play" style="display:none">
+        <div style="text-align:center;margin-bottom:20px">
+          <div id="fbd-scenario-emoji" class="fbd-scenario-emoji">📚</div>
+          <div id="fbd-scenario-title" class="fbd-scenario-title">Book on a Table</div>
+          <div id="fbd-scenario-desc" class="fbd-scenario-desc">...</div>
+        </div>
+        <div class="fbd-arena">
+          <p style="text-align:center;color:var(--text2);font-size:.85rem;margin-bottom:18px">Tap a label below, then tap a direction slot on the diagram to place the force.</p>
+          <div class="fbd-grid">
+            <div style="grid-area:up;display:flex;justify-content:center;align-items:flex-end">
+              <div class="fbd-arrow" id="fbd-arrow-up"></div>
+            </div>
+            <div style="grid-area:left;display:flex;justify-content:flex-end;align-items:center">
+              <div class="fbd-arrow" id="fbd-arrow-left"></div>
+            </div>
+            <div style="grid-area:obj;display:flex;align-items:center;justify-content:center">
+              <div class="fbd-object"><span id="fbd-obj-emoji">📦</span></div>
+            </div>
+            <div style="grid-area:right;display:flex;justify-content:flex-start;align-items:center">
+              <div class="fbd-arrow" id="fbd-arrow-right"></div>
+            </div>
+            <div style="grid-area:down;display:flex;justify-content:center;align-items:flex-start">
+              <div class="fbd-arrow" id="fbd-arrow-down"></div>
+            </div>
+          </div>
+          <div id="fbd-pool" style="display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-top:20px"></div>
+          <div style="text-align:center;margin-top:18px;display:flex;gap:12px;justify-content:center">
+            <button class="btn btn-outline" onclick="resetFBDArrows()">Reset</button>
+            <button class="btn btn-orange" id="fbd-check-btn" onclick="checkFBDForces()">Check Forces</button>
+          </div>
+          <div id="fbd-net-area" style="display:none;margin-top:22px;border-top:1px solid var(--border);padding-top:20px">
+            <div style="font-weight:700;font-size:1rem;margin-bottom:16px;text-align:center;line-height:1.5" id="fbd-net-q"></div>
+            <div class="choices-grid" id="fbd-net-choices"></div>
+          </div>
+        </div>
+      </div>
+      <div id="fbd-result" style="display:none" class="result-screen">
+        <div class="result-title" style="color:var(--orange)">Complete!</div>
+        <div class="result-score" id="fbd-final-score" style="color:var(--orange)"></div>
+        <div class="result-detail" id="fbd-final-detail"></div>
+        <div class="result-actions">
+          <button class="btn btn-outline" onclick="startFBD()">Play Again</button>
+          <button class="btn btn-orange" onclick="showScreen('hub')">Back to Hub</button>
+        </div>
       </div>
     </div>
   </div>
@@ -429,6 +648,24 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellips
             <div class="formula-item"><strong>p = m × v</strong> — momentum</div>
             <div class="formula-item"><strong>m₁v₁ + m₂v₂ = (m₁+m₂)v'</strong> — conservation</div>
             <div class="formula-item"><strong>λ = v ÷ f</strong> — wavelength</div>
+            <div class="formula-item"><strong>F = Gm₁m₂ ÷ r²</strong> — universal gravitation</div>
+            <div class="formula-item"><strong>G = 6.674 × 10⁻¹¹ N·m²/kg²</strong> — gravitational constant</div>
+            <div class="formula-item"><strong>d = ½ × g × t²</strong> — free fall distance</div>
+            <div class="formula-item"><strong>v = g × t</strong> — free fall velocity</div>
+            <div class="formula-item"><strong>v² = 2 × g × d</strong> — velocity from distance</div>
+            <div class="formula-item"><strong>g ≈ 9.8 m/s²</strong> — gravitational acceleration</div>
+            <div class="formula-item"><strong>s = d ÷ t</strong> — average speed</div>
+            <div class="formula-item"><strong>a = (vf − vi) ÷ t</strong> — acceleration</div>
+            <div class="formula-item"><strong>vf = vi + (a × t)</strong> — final velocity</div>
+            <div class="formula-item"><strong>F = m × a</strong> — Newton's 2nd Law</div>
+            <div class="formula-item"><strong>W = m × g</strong> — weight</div>
+            <div class="formula-item"><strong>Ff = μ × N</strong> — friction force</div>
+            <div class="formula-item"><strong>W = F × d</strong> — work (Joules)</div>
+            <div class="formula-item"><strong>P = W ÷ t</strong> — power (Watts)</div>
+            <div class="formula-item"><strong>KE = ½ × m × v²</strong> — kinetic energy</div>
+            <div class="formula-item"><strong>PE = m × g × h</strong> — potential energy</div>
+            <div class="formula-item"><strong>V = I × R</strong> — Ohm's Law</div>
+            <div class="formula-item"><strong>P = I × V</strong> — electric power</div>
           </div>
         </div>
         <div class="ff-bar-wrap"><div id="ff-timer-bar" style="width:100%"></div></div>
@@ -540,6 +777,310 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellips
 </div>
 
 <script>
+// ===== PHYSICS ASTEROIDS =====
+let astCanvas,astCtx,astAnim,astShip,astBullets,astAsteroids,astParticles;
+let astScore,astLives,astQNum,astRunning,astKeys={},astCurrentQ,astExplaining;
+
+function startAsteroids(){
+  document.getElementById('ast-intro').style.display='none';
+  document.getElementById('ast-result').style.display='none';
+  document.getElementById('ast-play').style.display='block';
+  initAsteroids();
+}
+function initAsteroids(){
+  astCanvas=document.getElementById('ast-canvas');
+  const W=Math.min((astCanvas.parentElement.offsetWidth||window.innerWidth||360)-20,720);
+  const H=Math.round(W*0.62);
+  astCanvas.width=W;astCanvas.height=H;
+  astCtx=astCanvas.getContext('2d');
+  astScore=0;astLives=3;astQNum=0;astRunning=true;astExplaining=false;astKeys={};
+  astShip={x:W/2,y:H/2,angle:-Math.PI/2,vx:0,vy:0,thrusting:false};
+  astBullets=[];astAsteroids=[];astParticles=[];
+  updateAstUI();
+  document.removeEventListener('keydown',astKD);document.removeEventListener('keyup',astKU);
+  document.addEventListener('keydown',astKD);document.addEventListener('keyup',astKU);
+  setupAstTouch();
+  loadAstQ();
+  if(astAnim)cancelAnimationFrame(astAnim);
+  astLoop();
+}
+function astKD(e){astKeys[e.key]=true;if(e.key===' '){e.preventDefault();fireAst();}}
+function astKU(e){astKeys[e.key]=false;}
+function loadAstQ(){
+  astExplaining=false;
+  const pool=[...physicsQuestions,...lrBank.filter(q=>q.type==='mc')].filter(q=>q.choices&&q.choices.length>=4);
+  astCurrentQ=pool[Math.floor(Math.random()*pool.length)];
+  document.getElementById('ast-q-bar').textContent=astCurrentQ.q;
+  astQNum++;document.getElementById('ast-q-num').textContent=astQNum;
+  const W=astCanvas.width,H=astCanvas.height;
+  astBullets=[];astAsteroids=[];astParticles=[];
+  astCurrentQ.choices.forEach((choice,i)=>{
+    const edge=Math.floor(Math.random()*4);
+    let x,y,vx,vy;const sp=0.55+Math.random()*0.4;
+    if(edge===0){x=40+Math.random()*(W-80);y=-40;vx=(Math.random()-.5)*sp;vy=sp;}
+    else if(edge===1){x=W+40;y=40+Math.random()*(H-80);vx=-sp;vy=(Math.random()-.5)*sp;}
+    else if(edge===2){x=40+Math.random()*(W-80);y=H+40;vx=(Math.random()-.5)*sp;vy=-sp;}
+    else{x=-40;y=40+Math.random()*(H-80);vx=sp;vy=(Math.random()-.5)*sp;}
+    const nv=7+Math.floor(Math.random()*4),br=46+Math.floor(Math.random()*12),verts=[];
+    for(let j=0;j<nv;j++){const a=(j/nv)*Math.PI*2,r=br*(0.65+Math.random()*0.5);verts.push({a,r});}
+    astAsteroids.push({x,y,vx,vy,label:choice,isCorrect:i===astCurrentQ.ans,verts,size:br,rot:Math.random()*Math.PI*2,spin:(Math.random()-.5)*.018,alive:true});
+  });
+}
+function astLoop(){
+  if(!astRunning)return;
+  const W=astCanvas.width,H=astCanvas.height,ctx=astCtx;
+  if(!astExplaining){
+    if(astKeys['ArrowLeft']||astKeys['a'])astShip.angle-=0.055;
+    if(astKeys['ArrowRight']||astKeys['d'])astShip.angle+=0.055;
+    astShip.thrusting=!!(astKeys['ArrowUp']||astKeys['w']);
+    if(astShip.thrusting){astShip.vx+=Math.cos(astShip.angle)*0.18;astShip.vy+=Math.sin(astShip.angle)*0.18;}
+  }
+  const sp=Math.hypot(astShip.vx,astShip.vy);
+  if(sp>4.8){astShip.vx=astShip.vx/sp*4.8;astShip.vy=astShip.vy/sp*4.8;}
+  astShip.vx*=0.982;astShip.vy*=0.982;
+  astShip.x+=astShip.vx;astShip.y+=astShip.vy;
+  if(astShip.x<-12)astShip.x=W+12;if(astShip.x>W+12)astShip.x=-12;
+  if(astShip.y<-12)astShip.y=H+12;if(astShip.y>H+12)astShip.y=-12;
+  astBullets=astBullets.filter(b=>b.life>0);
+  astBullets.forEach(b=>{b.x+=b.vx;b.y+=b.vy;b.life--;});
+  astAsteroids.forEach(a=>{if(!a.alive)return;a.x+=a.vx;a.y+=a.vy;a.rot+=a.spin;if(a.x<-65)a.x=W+65;if(a.x>W+65)a.x=-65;if(a.y<-65)a.y=H+65;if(a.y>H+65)a.y=-65;});
+  astParticles=astParticles.filter(p=>p.life>0);
+  astParticles.forEach(p=>{p.x+=p.vx;p.y+=p.vy;p.life--;p.vy+=0.07;});
+  if(!astExplaining)checkAstHits();
+  // Draw
+  ctx.fillStyle='#000';ctx.fillRect(0,0,W,H);
+  // Stars
+  ctx.fillStyle='rgba(255,255,255,.4)';
+  for(let i=0;i<40;i++){const sx=(i*73+11)%W,sy=(i*47+7)%H;ctx.fillRect(sx,sy,1,1);}
+  // Particles
+  astParticles.forEach(p=>{const al=p.life/p.ml;ctx.fillStyle=`rgba(${p.r},${p.g},${p.b},${al})`;ctx.fillRect(p.x,p.y,p.sz,p.sz);});
+  // Asteroids
+  astAsteroids.forEach(a=>{
+    if(!a.alive)return;
+    ctx.save();ctx.translate(a.x,a.y);ctx.rotate(a.rot);
+    ctx.beginPath();
+    a.verts.forEach((v,i)=>{const px=Math.cos(v.a)*v.r,py=Math.sin(v.a)*v.r;i===0?ctx.moveTo(px,py):ctx.lineTo(px,py);});
+    ctx.closePath();
+    ctx.fillStyle=a.isCorrect?'rgba(57,255,20,.08)':'rgba(180,79,255,.1)';ctx.fill();
+    ctx.strokeStyle=a.isCorrect?'rgba(57,255,20,.55)':'rgba(180,79,255,.45)';ctx.lineWidth=1.8;ctx.stroke();
+    ctx.restore();
+    ctx.save();ctx.translate(a.x,a.y);
+    ctx.fillStyle='rgba(255,255,255,.92)';ctx.textAlign='center';ctx.textBaseline='middle';
+    const words=a.label.split(' '),mw=a.size*1.3,lh=13;
+    let lines=[],ln='';
+    ctx.font='bold 11px Nunito,sans-serif';
+    words.forEach(w=>{const t=ln?ln+' '+w:w;ctx.measureText(t).width>mw&&ln?(lines.push(ln),ln=w):(ln=t);});
+    if(ln)lines.push(ln);
+    lines.forEach((l,i)=>ctx.fillText(l,0,(i-(lines.length-1)/2)*lh));
+    ctx.restore();
+  });
+  // Bullets
+  ctx.shadowColor='#fff';ctx.shadowBlur=7;
+  astBullets.forEach(b=>{ctx.fillStyle='rgba(255,255,255,.95)';ctx.beginPath();ctx.arc(b.x,b.y,2.5,0,Math.PI*2);ctx.fill();});
+  ctx.shadowBlur=0;
+  // Ship
+  if(!astExplaining){
+    ctx.save();ctx.translate(astShip.x,astShip.y);ctx.rotate(astShip.angle);
+    ctx.shadowColor='rgba(180,79,255,.8)';ctx.shadowBlur=14;
+    ctx.beginPath();ctx.moveTo(20,0);ctx.lineTo(-12,11);ctx.lineTo(-7,0);ctx.lineTo(-12,-11);ctx.closePath();
+    ctx.fillStyle='rgba(180,79,255,.9)';ctx.fill();
+    ctx.strokeStyle='#b44fff';ctx.lineWidth=1.5;ctx.stroke();
+    if(astShip.thrusting){ctx.beginPath();ctx.moveTo(-7,0);ctx.lineTo(-20,6);ctx.lineTo(-14,0);ctx.lineTo(-20,-6);ctx.closePath();ctx.fillStyle='rgba(255,150,0,.85)';ctx.fill();}
+    ctx.shadowBlur=0;ctx.restore();
+  }
+  astAnim=requestAnimationFrame(astLoop);
+}
+function fireAst(){
+  if(astExplaining||astBullets.length>=6)return;
+  astBullets.push({x:astShip.x+Math.cos(astShip.angle)*22,y:astShip.y+Math.sin(astShip.angle)*22,vx:astShip.vx+Math.cos(astShip.angle)*8,vy:astShip.vy+Math.sin(astShip.angle)*8,life:65});
+}
+function checkAstHits(){
+  astBullets.forEach(b=>{
+    if(b.life<=0)return;
+    astAsteroids.forEach(a=>{
+      if(!a.alive)return;
+      if(Math.hypot(b.x-a.x,b.y-a.y)<a.size){
+        b.life=0;a.alive=false;astExplode(a);
+        if(a.isCorrect){
+          astScore+=200;updateAstUI();
+          trackQ(astCurrentQ.q,astCurrentQ.topic||'mixed','Asteroids',true);
+          astExplaining=true;
+          showNarrator(true,'Direct hit! Correct!',astCurrentQ.explain,'Next question!',()=>loadAstQ());
+        } else {
+          astLives=Math.max(0,astLives-1);updateAstUI();
+          trackQ(astCurrentQ.q,astCurrentQ.topic||'mixed','Asteroids',false);
+          if(astLives<=0){setTimeout(()=>endAsteroids(),600);return;}
+          astExplaining=true;
+          showNarrator(false,'Wrong target!','That was a wrong answer. '+astCurrentQ.explain,'Keep firing!',()=>loadAstQ());
+        }
+      }
+    });
+  });
+}
+function astExplode(a){
+  for(let i=0;i<22;i++){const ang=Math.random()*Math.PI*2,sp=1+Math.random()*3.5;astParticles.push({x:a.x,y:a.y,vx:Math.cos(ang)*sp,vy:Math.sin(ang)*sp,life:25+Math.floor(Math.random()*20),ml:45,r:180,g:79,b:255,sz:2+Math.random()*3});}
+}
+function updateAstUI(){
+  const row=document.getElementById('ast-lives-row');
+  row.innerHTML='<span style="color:var(--text2);font-size:.8rem;margin-right:4px">Lives:</span>';
+  for(let i=0;i<3;i++){const s=document.createElement('span');s.className='life-icon';s.textContent=i<astLives?'🚀':'💀';row.appendChild(s);}
+  document.getElementById('ast-score-val').textContent=astScore.toLocaleString();
+}
+function astStop(){astRunning=false;if(astAnim){cancelAnimationFrame(astAnim);astAnim=null;}document.removeEventListener('keydown',astKD);document.removeEventListener('keyup',astKU);astKeys={};}
+function endAsteroids(){
+  astStop();
+  document.getElementById('ast-play').style.display='none';
+  document.getElementById('ast-result').style.display='block';
+  document.getElementById('ast-result-score').textContent=astScore.toLocaleString();
+  document.getElementById('ast-result-detail').textContent=astQNum+' questions, '+astScore.toLocaleString()+' points. '+(astScore>=1800?'Unreal accuracy! Physics ace!':astScore>=1000?'Great shooting! You know this material.':'Keep practicing — every miss teaches something!');
+  if(astScore>=1000)fireConfetti();
+  if(astScore>0)promptLBEntry('Asteroids',astScore);
+}
+function setupAstTouch(){
+  [['ast-rot-left','ArrowLeft'],['ast-rot-right','ArrowRight'],['ast-thrust','ArrowUp']].forEach(([id,key])=>{
+    const el=document.getElementById(id);if(!el)return;
+    const fresh=el.cloneNode(true);el.parentNode.replaceChild(fresh,el);
+    fresh.addEventListener('touchstart',e=>{e.preventDefault();astKeys[key]=true;},{passive:false});
+    fresh.addEventListener('touchend',e=>{e.preventDefault();astKeys[key]=false;},{passive:false});
+    fresh.addEventListener('mousedown',()=>astKeys[key]=true);
+    fresh.addEventListener('mouseup',()=>astKeys[key]=false);
+  });
+  const fe=document.getElementById('ast-fire');
+  if(fe){const fresh=fe.cloneNode(true);fe.parentNode.replaceChild(fresh,fe);
+    fresh.addEventListener('touchstart',e=>{e.preventDefault();fireAst();},{passive:false});
+    fresh.addEventListener('mousedown',()=>fireAst());}
+  let tx,ty;
+  astCanvas.addEventListener('touchstart',e=>{tx=e.touches[0].clientX;ty=e.touches[0].clientY;},{passive:true});
+  astCanvas.addEventListener('touchend',e=>{const dx=e.changedTouches[0].clientX-tx,dy=e.changedTouches[0].clientY-ty;if(Math.abs(dx)<18&&Math.abs(dy)<18)fireAst();},{passive:true});
+}
+
+// ===== FORCE DIAGRAM BUILDER =====
+const fbdScenarios=[
+  {emoji:'📚',title:'Book on a Table',desc:'A book sits perfectly still on a flat table.',objEmoji:'📦',forces:{up:'Normal Force',down:'Weight',left:null,right:null},pool:['Weight','Normal Force','Friction','Applied Force','Tension','Air Resistance'],netQ:'The book is not moving. What is the net force on it?',netChoices:['0 N — it is in equilibrium','9.8 N downward','9.8 N upward','Cannot be determined'],netAns:0,explain:'Net force = 0! Weight (gravity) pulls the book down, Normal Force from the table pushes up with EQUAL magnitude. They cancel. No net force → no acceleration → book stays still. This is Newton\'s 1st Law — balanced forces = no change in motion!'},
+  {emoji:'📦',title:'Box Being Pushed',desc:'Someone pushes a box to the right across a floor. The box is accelerating rightward.',objEmoji:'📦',forces:{up:'Normal Force',down:'Weight',left:'Friction',right:'Applied Force'},pool:['Weight','Normal Force','Friction','Applied Force','Tension','Thrust'],netQ:'Applied force = 20 N right, friction = 8 N left. What is the net force?',netChoices:['12 N to the right','28 N to the right','8 N to the left','0 N — equilibrium'],netAns:0,explain:'Net force = 20 − 8 = 12 N to the right! Friction ALWAYS opposes motion — it points left because the box moves right. Since net force ≠ 0, the box accelerates (F=ma). Friction is why pushing on carpet is harder than a smooth floor!'},
+  {emoji:'🪂',title:'Skydiver at Terminal Velocity',desc:'A skydiver falls at constant speed (terminal velocity) — NOT accelerating.',objEmoji:'🧑',forces:{up:'Air Resistance',down:'Weight',left:null,right:null},pool:['Weight','Normal Force','Air Resistance','Friction','Tension','Applied Force'],netQ:'At terminal velocity, what is the net force on the skydiver?',netChoices:['0 N — equilibrium','Large downward force','Large upward force','Depends on mass'],netAns:0,explain:'Net force = 0! Air Resistance (up) = Weight (down) → forces balance → constant velocity. As a skydiver speeds up, air resistance increases until it equals their weight — that\'s terminal velocity. Constant speed = zero acceleration = zero net force!'},
+  {emoji:'💡',title:'Hanging Lamp',desc:'A lamp hangs motionless from the ceiling by a wire.',objEmoji:'💡',forces:{up:'Tension',down:'Weight',left:null,right:null},pool:['Weight','Normal Force','Tension','Friction','Applied Force','Air Resistance'],netQ:'The lamp weighs 30 N. What is the tension in the wire?',netChoices:['30 N','15 N','60 N','0 N'],netAns:0,explain:'Tension = Weight = 30 N! In equilibrium, net force = 0, so tension must exactly balance weight. Tension is the pulling force in a rope or wire — it always pulls AWAY from the object toward the attachment point.'},
+  {emoji:'🚀',title:'Launching Rocket',desc:'A rocket fires its engines and accelerates upward off the launch pad.',objEmoji:'🚀',forces:{up:'Thrust',down:'Weight',left:null,right:null},pool:['Weight','Thrust','Normal Force','Friction','Air Resistance','Tension'],netQ:'Thrust = 500 N upward, Weight = 200 N. What is the net force?',netChoices:['300 N upward','700 N upward','200 N downward','0 N'],netAns:0,explain:'Net force = Thrust − Weight = 500 − 200 = 300 N upward! For a rocket to lift off, thrust must EXCEED weight. The difference is the net upward force that causes upward acceleration. F=ma: net force up → accelerate up!'},
+  {emoji:'🚗',title:'Car Braking to a Stop',desc:'A car moves right but is braking — slowing down. Friction acts backward.',objEmoji:'🚗',forces:{up:'Normal Force',down:'Weight',left:'Friction',right:null},pool:['Weight','Normal Force','Friction','Applied Force','Air Resistance','Tension'],netQ:'The net horizontal force is from friction acting LEFT. The car is slowing down. Which direction is its acceleration?',netChoices:['To the left (negative/decelerating)','To the right (same as motion)','Upward','Zero'],netAns:0,explain:'Acceleration is to the LEFT — opposing the motion! Friction from the brakes acts backward (left). F=ma: leftward net force → leftward acceleration → car decelerates and slows. Brakes deliberately create friction to produce this deceleration effect!'},
+  {emoji:'⚽',title:'Ball at Peak of Throw',desc:'A ball is thrown upward. At the very top, it has zero velocity for an instant.',objEmoji:'⚽',forces:{up:null,down:'Weight',left:null,right:null},pool:['Weight','Normal Force','Applied Force','Tension','Air Resistance','Thrust'],netQ:'At the peak, the ball has zero velocity. What force(s) act on it at that instant?',netChoices:['Only Weight (gravity) downward','Weight down AND a force upward','No forces — velocity is zero','Normal Force upward'],netAns:0,explain:'Only Weight (gravity) acts at the peak! The upward force from the throw ended the moment the ball left your hand. Even with zero velocity at the peak, gravity still pulls down — so the ball WILL start falling. Zero velocity ≠ zero force. This is one of the most common misconceptions in physics!'},
+  {emoji:'🧱',title:'Person Pushing a Wall',desc:'A person pushes hard on a wall. The wall does NOT move.',objEmoji:'🧱',forces:{up:null,down:null,left:'Reaction Force',right:'Applied Force'},pool:['Applied Force','Reaction Force','Weight','Normal Force','Friction','Tension'],netQ:'Person pushes right (100 N). Wall pushes person left (100 N). Net force on the WALL?',netChoices:['0 N — wall is in equilibrium','100 N to the right','200 N total','100 N to the left'],netAns:0,explain:'Net force on the wall = 0 N! The person pushes right (100 N), but the wall is attached to the ground/building — other forces (normal, friction from foundation) balance it. The wall is in equilibrium. Newton\'s 3rd Law: the wall pushes back on the PERSON with 100 N left — that\'s the reaction force that stops you from falling through!'}
+];
+let fbdIdx=0,fbdPlaced={},fbdDragLabel=null,fbdScore=0,fbdTotal=0;
+function startFBD(){
+  document.getElementById('fbd-intro').style.display='none';
+  document.getElementById('fbd-result').style.display='none';
+  document.getElementById('fbd-play').style.display='block';
+  fbdIdx=0;fbdScore=0;fbdTotal=0;
+  loadFBDScene();
+}
+function loadFBDScene(){
+  if(fbdIdx>=fbdScenarios.length){endFBD();return;}
+  const sc=fbdScenarios[fbdIdx];
+  fbdPlaced={};fbdDragLabel=null;
+  document.getElementById('fbd-scenario-emoji').textContent=sc.emoji;
+  document.getElementById('fbd-scenario-title').textContent=sc.title;
+  document.getElementById('fbd-scenario-desc').textContent=sc.desc;
+  document.getElementById('fbd-obj-emoji').textContent=sc.objEmoji;
+  document.getElementById('fbd-progress').textContent=(fbdIdx+1)+'/'+fbdScenarios.length;
+  document.getElementById('fbd-check-btn').style.display='inline-block';
+  document.getElementById('fbd-net-area').style.display='none';
+  buildFBDArrows();buildFBDPool(sc);
+}
+function buildFBDArrows(){
+  const dirs={up:'↑ drop',down:'↓ drop',left:'← drop',right:'→ drop'};
+  Object.keys(dirs).forEach(dir=>{
+    const el=document.getElementById('fbd-arrow-'+dir);
+    el.className='fbd-arrow';el.innerHTML='<span style="font-size:.6rem">'+dirs[dir]+'</span>';
+    el.onclick=()=>{if(fbdDragLabel)handleFBDDrop(dir);};
+  });
+}
+function buildFBDPool(sc){
+  const pool=document.getElementById('fbd-pool');pool.innerHTML='';
+  sc.pool.forEach(label=>{
+    const el=document.createElement('div');
+    el.className='fbd-label';el.id='fbd-l-'+label.replace(/\W/g,'_');el.textContent=label;
+    el.onclick=()=>{
+      if(el.classList.contains('fbd-used'))return;
+      document.querySelectorAll('.fbd-label').forEach(l=>l.classList.remove('fbd-selected'));
+      if(fbdDragLabel===label){fbdDragLabel=null;return;}
+      fbdDragLabel=label;el.classList.add('fbd-selected');
+    };
+    pool.appendChild(el);
+  });
+}
+function handleFBDDrop(dir){
+  if(!fbdDragLabel)return;
+  if(fbdPlaced[dir]){const prev=document.getElementById('fbd-l-'+fbdPlaced[dir].replace(/\W/g,'_'));if(prev)prev.classList.remove('fbd-used');}
+  fbdPlaced[dir]=fbdDragLabel;
+  const lel=document.getElementById('fbd-l-'+fbdDragLabel.replace(/\W/g,'_'));
+  if(lel){lel.classList.add('fbd-used');lel.classList.remove('fbd-selected');}
+  const arrowTxt={up:'↑',down:'↓',left:'←',right:'→'};
+  const el=document.getElementById('fbd-arrow-'+dir);
+  el.className='fbd-arrow fbd-filled';
+  el.innerHTML='<span>'+arrowTxt[dir]+' '+fbdDragLabel+'</span>';
+  el.onclick=()=>{
+    const old=fbdPlaced[dir];if(old){const o=document.getElementById('fbd-l-'+old.replace(/\W/g,'_'));if(o)o.classList.remove('fbd-used');}
+    delete fbdPlaced[dir];
+    el.className='fbd-arrow';el.innerHTML='<span style="font-size:.6rem">'+arrowTxt[dir]+' drop</span>';
+    el.onclick=()=>{if(fbdDragLabel)handleFBDDrop(dir);};
+  };
+  fbdDragLabel=null;document.querySelectorAll('.fbd-label').forEach(l=>l.classList.remove('fbd-selected'));
+}
+function resetFBDArrows(){fbdPlaced={};fbdDragLabel=null;buildFBDArrows();buildFBDPool(fbdScenarios[fbdIdx]);}
+function checkFBDForces(){
+  const sc=fbdScenarios[fbdIdx];
+  let ok=true,firstBad=null;
+  ['up','down','left','right'].forEach(dir=>{
+    const exp=sc.forces[dir],placed=fbdPlaced[dir]||null;
+    const el=document.getElementById('fbd-arrow-'+dir);
+    if(exp===placed){if(placed)el.classList.add('fbd-correct');}
+    else{ok=false;el.classList.add('fbd-wrong');if(!firstBad)firstBad={dir,exp,placed};}
+  });
+  if(ok){
+    document.getElementById('fbd-check-btn').style.display='none';
+    document.getElementById('fbd-net-area').style.display='block';
+    loadFBDNetQ(sc);
+  } else {
+    fbdTotal++;
+    let msg;
+    if(!firstBad.exp&&firstBad.placed)msg='"'+firstBad.placed+'" should not be on the '+firstBad.dir+' side — no force acts there in this scenario!';
+    else if(firstBad.exp&&!firstBad.placed)msg='You\'re missing a force on the '+firstBad.dir+' side. Think about what\'s acting in that direction!';
+    else msg='"'+firstBad.placed+'" is wrong on the '+firstBad.dir+' side. That slot should have "'+firstBad.exp+'."';
+    showNarrator(false,'Check your diagram!',msg,'Let me fix it!',()=>resetFBDArrows());
+  }
+}
+function loadFBDNetQ(sc){
+  document.getElementById('fbd-net-q').textContent=sc.netQ;
+  const cont=document.getElementById('fbd-net-choices');cont.innerHTML='';
+  sc.netChoices.forEach((c,i)=>{
+    const btn=document.createElement('button');btn.className='choice-btn';btn.textContent=c;
+    btn.onclick=()=>handleFBDNet(btn,i===sc.netAns,sc,cont);
+    cont.appendChild(btn);
+  });
+}
+function handleFBDNet(btn,isCorrect,sc,cont){
+  cont.querySelectorAll('.choice-btn').forEach(b=>b.onclick=null);
+  fbdTotal++;
+  trackQ(sc.netQ,'forces','FBD Builder',isCorrect);
+  if(isCorrect){
+    btn.classList.add('correct');fbdScore++;
+    if(fbdScore===fbdScenarios.length)fireConfetti();
+    setTimeout(()=>{fbdIdx++;loadFBDScene();},700);
+  } else {
+    btn.classList.add('wrong');
+    cont.querySelectorAll('.choice-btn').forEach((b,i)=>{if(i===sc.netAns)b.classList.add('correct');});
+    showNarrator(false,'Not quite!',sc.explain,'Got it!',()=>{fbdIdx++;loadFBDScene();});
+  }
+}
+function endFBD(){
+  document.getElementById('fbd-play').style.display='none';
+  document.getElementById('fbd-result').style.display='block';
+  document.getElementById('fbd-final-score').textContent=fbdScore+'/'+fbdScenarios.length;
+  document.getElementById('fbd-final-detail').textContent=fbdScore>=7?'Force diagram master! All scenarios nailed!':fbdScore>=5?'Great work! Review the ones you missed.':'Keep studying Newton\'s Laws — these diagrams are definitely on the test!';
+  if(fbdScore>=6)fireConfetti();
+  if(fbdScore>0)promptLBEntry('FBD Builder',fbdScore*125);
+}
+
 // ===== NAVIGATION =====
 function showScreen(id){
   document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
@@ -584,8 +1125,8 @@ function closeNarrator(){
 // ===== PAC-MAN =====
 let pacCanvas,ctx,pacAnim,pacState;
 const CELL=32,COLS=20,ROWS=15;
-const ghostColors=['#ff4444','#ffaa00','#ff44ff','#44ffff'];
-const ghostTopics=['waves','sound','momentum','em'];
+const ghostColors=['#ff4444','#ffaa00','#ff44ff','#44ffff','#44ff88','#ff88cc','#ffdd44','#00ccff','#ff6688'];
+const ghostTopics=['waves','sound','momentum','em','gravity','motion','forces','energy','electric'];
 
 const physicsQuestions=[
   {topic:'waves',ghost:'🌊',q:'What does FREQUENCY measure?',choices:['How high a wave is','How many waves pass per second','How fast a wave travels','The distance between waves'],ans:1,explain:"Great question! Frequency counts how many complete waves pass a point every second. Think of it like how many times you can wave your hand per second — that's the frequency! We measure it in Hertz (Hz)."},
@@ -603,6 +1144,32 @@ const physicsQuestions=[
   {topic:'em',ghost:'🌈',q:'What is the speed of all EM waves in a vacuum?',choices:['340 m/s','3,000 m/s','3 × 10⁸ m/s','3 × 10⁶ m/s'],ans:2,explain:"All electromagnetic waves travel at exactly 3 × 10⁸ meters per second in a vacuum — that\'s 300,000 kilometers per second! This is the speed of light. Radio waves, microwaves, X-rays, light — they all go the exact same speed in space. Just memorize it: 3 × 10⁸ m/s!"},
   {topic:'em',ghost:'🌈',q:'Which EM wave has the HIGHEST frequency?',choices:['Radio waves','Infrared','X-rays','Gamma rays'],ans:3,explain:"Gamma rays are at the extreme end of the EM spectrum with the highest frequency, shortest wavelength, and most energy! That\'s why they\'re so dangerous. Remember: Radio → Microwave → Infrared → Visible → UV → X-ray → Gamma. Frequency and energy INCREASE as you go from left to right!"},
   {topic:'em',ghost:'🌈',q:'As frequency increases in the EM spectrum, what happens to wavelength?',choices:['It increases too','It stays the same','It decreases','It becomes zero'],ans:2,explain:"Frequency and wavelength are OPPOSITES when speed stays constant (and it does — v = 3×10⁸!). Use v = f × λ: since v is fixed, if f goes up, λ MUST go down. It\'s like a seesaw — one side goes up, the other goes down. High frequency = short wavelength. Low frequency = long wavelength!"},
+  {topic:'gravity',ghost:'🌍',q:"In Newton's Law of Universal Gravitation, if you DOUBLE the distance between two objects, the gravitational force...",choices:['Doubles','Halves','Becomes 4 times weaker','Stays the same'],ans:2,explain:"Gravity follows an INVERSE SQUARE LAW — F = Gm₁m₂/r². If r doubles, r² becomes 4× bigger so F becomes 4× SMALLER. Double the distance = one quarter the force. This is why gravity weakens fast as you move away from a planet!"},
+  {topic:'gravity',ghost:'🌍',q:"What is a projectile?",choices:['Any object that moves','An object only acted on by gravity after launch','A rocket using engine thrust','An object constrained to move horizontally'],ans:1,explain:"A projectile is any object launched into the air that is influenced ONLY by gravity afterward — no engine, no thrust, no wind considered. A thrown ball, a kicked football, a bullet after firing — all projectiles! The key is that only gravity acts on it once it's in the air."},
+  {topic:'gravity',ghost:'🌍',q:"In projectile motion, the horizontal velocity...",choices:['Increases due to gravity','Decreases over time','Remains constant throughout','Becomes zero at the peak'],ans:2,explain:"Horizontal velocity stays CONSTANT throughout projectile motion! Gravity only pulls DOWN — it cannot change horizontal motion. So once launched, horizontal speed never changes (ignoring air resistance). Vertical speed, however, changes at 9.8 m/s² the whole time!"},
+  {topic:'gravity',ghost:'🌍',q:"What is the gravitational acceleration (g) near Earth's surface?",choices:['5 m/s²','9.8 m/s²','15 m/s²',"It depends on the object's mass"],ans:1,explain:"All objects near Earth's surface accelerate downward at 9.8 m/s² — regardless of mass! Galileo demonstrated this. We often round to 10 m/s² for calculations. It varies on other planets: Moon ≈ 1.6 m/s², Jupiter ≈ 24.8 m/s²."},
+  {topic:'gravity',ghost:'🌍',q:"In F = Gm₁m₂/r², what does G represent?",choices:["Gravity on Earth's surface","Gravitational acceleration (9.8)",'The Universal Gravitational Constant (6.674 × 10⁻¹¹)','The mass of Earth'],ans:2,explain:"G is the Universal Gravitational Constant: 6.674 × 10⁻¹¹ N·m²/kg². It's the same EVERYWHERE in the universe. It's tiny, which explains why gravity between everyday objects is imperceptibly weak. You need planetary-scale mass for gravity to be noticeable!"},
+  {topic:'gravity',ghost:'🌍',q:"Which free fall formula finds distance when you know time? (from rest)",choices:['v = g × t','d = ½ × g × t²','v² = 2 × g × d','d = g ÷ t'],ans:1,explain:"d = ½gt² is your formula when you know time and need distance! Always square the time first: after 1s: 4.9 m, after 2s: 19.6 m, after 3s: 44.1 m. Distance grows fast because you keep accelerating the whole way down!"},
+  {topic:'motion',ghost:'🚀',q:"What is the formula for average speed?",choices:['s = d × t','s = d ÷ t','s = t ÷ d','s = d + t'],ans:1,explain:"Speed = distance ÷ time, or s = d/t! If you travel 120 m in 4 seconds, your speed is 30 m/s. Always check units — distance in meters, time in seconds gives m/s. This formula is the foundation of all kinematics!"},
+  {topic:'motion',ghost:'🚀',q:"What is the key difference between VELOCITY and SPEED?",choices:['Velocity uses meters; speed uses km/h','Velocity includes direction; speed does not','Speed is always higher than velocity','There is no practical difference'],ans:1,explain:"Velocity is a VECTOR — it has both magnitude AND direction (30 m/s north). Speed is a SCALAR — magnitude only (30 m/s). You can drive in a circle at constant speed, but your velocity is constantly changing because direction keeps changing!"},
+  {topic:'motion',ghost:'🚀',q:"Acceleration is defined as...",choices:['How fast something is moving','Change in speed ÷ time','Change in velocity ÷ time','Distance ÷ time squared'],ans:2,explain:"Acceleration = change in velocity ÷ time = (vf - vi) ÷ t. Since velocity includes direction, any change in DIRECTION is also acceleration — even at constant speed! A car turning a corner is accelerating. Unit: m/s²."},
+  {topic:'motion',ghost:'🚀',q:"On a position vs. time graph, what does the SLOPE represent?",choices:['Acceleration','Displacement','Velocity','Distance'],ans:2,explain:"Slope = rise ÷ run = Δposition ÷ Δtime = velocity! Steep slope = fast. Horizontal line = stopped. Straight line = constant velocity. Curved/steepening line = acceleration. Always read motion graphs by looking at their slopes!"},
+  {topic:'motion',ghost:'🚀',q:"You walk 4 m north, then 4 m south back to start. Your DISPLACEMENT is...",choices:['8 m','4 m','0 m','2 m'],ans:2,explain:"Displacement is the STRAIGHT-LINE distance from start to finish — accounting for direction. You started and ended at the same spot, so displacement = 0 m! Total distance traveled = 8 m. Displacement is a vector (direction matters), distance is a scalar."},
+  {topic:'forces',ghost:'🔺',q:"Newton's First Law says an object at rest stays at rest unless...",choices:['It has mass','A net force acts on it','It has inertia','It reaches maximum speed'],ans:1,explain:"Newton's 1st Law = Law of INERTIA! Objects keep doing what they're doing unless a NET force changes it. A hockey puck slides forever on frictionless ice. A book stays on a table because gravity and normal force cancel. This is why you lurch forward when a car brakes — your body's inertia resists the stop!"},
+  {topic:'forces',ghost:'🔺',q:"Newton's Second Law: F = ma. If you double the force on an object (same mass), the acceleration...",choices:['Stays the same','Doubles','Quadruples','Halves'],ans:1,explain:"F = ma — force and acceleration are DIRECTLY proportional when mass is constant. Double F → double a. Push twice as hard → accelerate twice as fast! The unit of force is the Newton (N), where 1 N = the force that gives 1 kg an acceleration of 1 m/s²."},
+  {topic:'forces',ghost:'🔺',q:"Newton's 3rd Law: when you push on a wall, the action-reaction force pair...",choices:['Cancels out — net force is zero','Acts on the same object','Acts on DIFFERENT objects','Adds to give double the force'],ans:2,explain:"Action-reaction forces ALWAYS act on DIFFERENT objects! Your push acts on the WALL. The wall's push acts on YOU. They don't cancel because they're on different objects. Canceling only happens when opposing forces act on the SAME object (like a book sitting still on a table)."},
+  {topic:'forces',ghost:'🔺',q:"What is the difference between mass and weight?",choices:['They are the same thing in different units','Mass is constant everywhere; weight is gravitational force and varies by location','Weight is constant; mass changes on other planets','Mass is measured in Newtons'],ans:1,explain:"Mass = amount of matter, measured in kg, CONSTANT everywhere. Weight = gravitational force on that mass (W = mg), measured in Newtons, VARIES by location. Your mass is 60 kg on Earth and on the Moon. Your weight is ~588 N on Earth but only ~98 N on the Moon — about 1/6 as much!"},
+  {topic:'forces',ghost:'🔺',q:"Two forces act on an object: 20 N right and 8 N left. What is the net force?",choices:['28 N right','12 N left','12 N right','20 N right'],ans:2,explain:"Net force = sum of all forces including direction! 20 N right - 8 N left = 12 N right. The object accelerates to the right. If the forces were equal and opposite (net force = 0), the object would be in equilibrium — no acceleration!"},
+  {topic:'energy',ghost:'💡',q:"What is the formula for kinetic energy?",choices:['KE = mv','KE = mgh','KE = ½mv²','KE = Fd'],ans:2,explain:"KE = ½mv² — kinetic energy depends on mass AND velocity, but velocity is SQUARED! Doubling your speed QUADRUPLES kinetic energy. That's why highway crashes are so much more dangerous than parking lot bumps — at 60 mph you have 4× the KE of 30 mph. Always square v before multiplying!"},
+  {topic:'energy',ghost:'💡',q:"Gravitational potential energy (PE = mgh) depends on...",choices:['Mass and speed','Mass, gravity, and height','Force and time','Mass and acceleration'],ans:1,explain:"PE = mgh — all three multiply together: mass × gravitational acceleration × height. A heavy object high up has lots of PE. As it falls, PE converts to KE. At the bottom with no friction, all PE has become KE. This conversion is conservation of energy in action!"},
+  {topic:'energy',ghost:'💡',q:"A roller coaster is at the TOP of its highest hill. Which type of energy is GREATEST?",choices:['Kinetic Energy','Potential Energy','They are always equal','Neither — energy is lost at the top'],ans:1,explain:"Maximum height = maximum PE! PE = mgh — at the top (max h), PE is maximum, KE is minimum (slowest speed). At the bottom, all PE has converted to maximum KE (fastest speed). Total mechanical energy (PE + KE) stays constant throughout — conservation of energy!"},
+  {topic:'energy',ghost:'💡',q:"Power is measured in Watts. What does 1 Watt equal?",choices:['1 Newton per second','1 Joule per second','1 kilogram per second','1 meter per second'],ans:1,explain:"1 Watt = 1 Joule per second — power is the RATE of doing work! P = W/t. A 100 W bulb uses 100 joules of energy every second. Two people can do the same total work, but the one who finishes faster is MORE powerful. It's not just how much work, it's how fast you do it!"},
+  {topic:'energy',ghost:'💡',q:"When is ZERO WORK done on an object?",choices:['When the force is very small','When the object moves at constant speed','When displacement is zero (no net movement)','When no friction is present'],ans:2,explain:"W = F × d — work requires both force AND displacement in the same direction! If d = 0 (object goes nowhere, or returns to start), W = 0. Hold a heavy box perfectly still = 0 work. Also, pushing perpendicular to motion (like normal force) does 0 work because force and displacement are at 90°!"},
+  {topic:'electric',ghost:'⚡',q:"Two objects both carrying POSITIVE charge are brought near each other. They will...",choices:['Attract each other','Repel each other','Have no effect on each other','Share charge until neutral'],ans:1,explain:"Like charges REPEL! Two positive charges push apart. Two negative charges push apart. Positive and negative attract. This is the fundamental rule of electrostatics — 'opposites attract, likes repel.' It's what holds electrons orbiting around the nucleus (negative attracted to positive protons)!"},
+  {topic:'electric',ghost:'⚡',q:"Which subatomic particle carries a NEGATIVE charge?",choices:['Proton','Neutron','Electron','All subatomic particles have charge'],ans:2,explain:"Electrons are NEGATIVE, protons are POSITIVE, neutrons are NEUTRAL. Normally atoms have equal protons and electrons = neutral. Rub a balloon on hair → electrons transfer from hair to balloon → balloon becomes negative, hair becomes positive. Static electricity is just electron transfer!"},
+  {topic:'electric',ghost:'⚡',q:"Ohm's Law is V = IR. What does R represent?",choices:['Rate of current','Resistance (in Ohms)','Radiation energy','Resultant voltage'],ans:1,explain:"R = Resistance, measured in Ohms (Ω). Resistance opposes the flow of current. High resistance = low current for the same voltage. V = IR means: more resistance → need more voltage to push the same current through. Resistors, light bulbs, and all electrical components have resistance!"},
+  {topic:'electric',ghost:'⚡',q:"What is the key difference between SERIES and PARALLEL circuits?",choices:['Series uses more wire','In series all components share one path; in parallel each has its own path','Parallel circuits have more resistance','Series circuits have higher voltage'],ans:1,explain:"SERIES: one single path for current — if one component breaks, the whole circuit goes dark (old Christmas lights!). PARALLEL: each component has its own path — one failure doesn't kill the rest. Household wiring is always parallel so each outlet gets full voltage independently!"},
+  {topic:'electric',ghost:'⚡',q:"What are the three methods of charging an object?",choices:['Rubbing, melting, and heating','Friction, conduction, and induction','Touching, pushing, and pulling','Magnetism, static, and current'],ans:1,explain:"FRICTION: rub two objects together, electrons transfer. CONDUCTION: direct contact between charged and neutral object — charge flows. INDUCTION: charged object brought NEAR (not touching) a neutral one — redistributes charge without contact. Induction is the trickiest: the charged object never actually touches, yet charge moves!"},
 ];
 
 let pacScore=0,pacLives=3,pacCaught=0,pacPowered=false,pacPowerTimer=0;
@@ -640,7 +1207,7 @@ function initPacman(){
   ];
   // Create ghosts
   ghosts=ghostColors.map((color,i)=>({
-    x:W*.2+i*(W*.2),y:H*.3,
+    x:(W/(ghostColors.length+1))*(i+1),y:H*.3,
     vx:(Math.random()>.5?1:-1)*1.2,
     vy:(Math.random()>.5?1:-1)*1.2,
     color,topic:ghostTopics[i],
@@ -844,6 +1411,7 @@ function showPacQuestion(ghost){
 
 function handlePacAnswer(btn,isCorrect,q,ghost,choices){
   choices.querySelectorAll('.choice-btn').forEach(b=>b.onclick=null);
+  trackQ(q.q,q.topic,'Pac-Man',isCorrect);
   if(isCorrect){
     btn.classList.add('correct');
     document.getElementById('pac-q-explain').style.display='block';
@@ -1050,6 +1618,28 @@ const formulaQs=[
   {q:'5 kg cart at 4 m/s collides with stationary 5 kg cart and they stick. Final speed?',hint:'Conservation of momentum',ans:'2 m/s',wrong:['4 m/s','1 m/s','0 m/s'],explain:"p = (5)(4) = 20. Total mass = 10 kg. v' = 20 ÷ 10 = 2 m/s. When equal masses stick together, the speed always halves!"},
   {q:'A wave completes 120 oscillations in 2 minutes. Frequency?',hint:'Convert 2 minutes to seconds first!',ans:'1 Hz',wrong:['60 Hz','120 Hz','0.5 Hz'],explain:"2 minutes = 120 seconds. f = 120 ÷ 120 = 1 Hz. Always work in seconds when calculating frequency!"},
   {q:'What is the frequency of a wave with period 0.001 s?',hint:'f = 1 ÷ T',ans:'1000 Hz',wrong:['0.001 Hz','100 Hz','10 Hz'],explain:"f = 1 ÷ 0.001 = 1000 Hz (1 kHz). Very short period = very high frequency!"},
+  {q:'An object falls from rest for 3 s. How far does it fall? (g = 10 m/s²)',hint:'d = ½ × g × t²',ans:'45 m',wrong:['30 m','90 m','15 m'],explain:"d = ½ × 10 × 3² = ½ × 10 × 9 = 45 m. Square the time FIRST, then multiply by ½g. Free fall distance grows fast because you keep accelerating!"},
+  {q:'A free-falling object reaches 40 m/s. How long did it fall? (g = 10 m/s²)',hint:'t = v ÷ g',ans:'4 s',wrong:['40 s','0.25 s','400 s'],explain:"Rearrange v = g × t → t = v ÷ g = 40 ÷ 10 = 4 s. Every second of free fall adds 10 m/s, so reaching 40 m/s takes exactly 4 seconds."},
+  {q:'An object falls 80 m in free fall. What speed does it reach? (g = 10 m/s²)',hint:'v² = 2gd → v = √(2gd)',ans:'40 m/s',wrong:['80 m/s','800 m/s','4 m/s'],explain:"v² = 2 × 10 × 80 = 1600. v = √1600 = 40 m/s. Use v² = 2gd when you know distance but NOT time — rearrange and take the square root!"},
+  {q:'How fast is an object moving after falling freely for 5 s? (g = 10 m/s²)',hint:'v = g × t',ans:'50 m/s',wrong:['5 m/s','25 m/s','500 m/s'],explain:"v = g × t = 10 × 5 = 50 m/s. Every second adds 10 m/s: after 1s = 10, after 2s = 20, ... after 5s = 50 m/s. Simple but essential!"},
+  {q:'A projectile moves horizontally at 25 m/s. How far does it travel in 4 s?',hint:'x = vₓ × t — horizontal is constant!',ans:'100 m',wrong:['80 m','45 m','6.25 m'],explain:"x = vₓ × t = 25 × 4 = 100 m. Horizontal velocity NEVER changes in projectile motion — gravity has no horizontal component. Just speed × time, no acceleration involved!"},
+  {q:'An object is dropped from rest and falls for 2 s. How far? (g = 10 m/s²)',hint:'d = ½ × g × t²',ans:'20 m',wrong:['10 m','40 m','5 m'],explain:"d = ½ × 10 × 2² = ½ × 10 × 4 = 20 m. Half of g times t-squared — don't use d = g×t, that would give you velocity, not distance!"},
+  {q:'Two 3 kg masses are 1 m apart. G = 6.67×10⁻¹¹. What is the gravitational force?',hint:'F = G × m₁ × m₂ ÷ r²',ans:'6.0 × 10⁻¹⁰ N',wrong:['2.0 × 10⁻¹⁰ N','6.67 × 10⁻¹¹ N','1.2 × 10⁻⁹ N'],explain:"F = (6.67×10⁻¹¹ × 3 × 3) ÷ 1² = 6.003×10⁻¹⁰ ≈ 6.0×10⁻¹⁰ N. Incredibly tiny — that's why you don't feel gravitational pull toward other people. Only planetary-scale masses produce noticeable gravity!"},
+  {q:'An object in free fall has v = 0 at the top. How far did it fall to reach 30 m/s? (g = 10)',hint:'v² = 2gd → d = v² ÷ (2g)',ans:'45 m',wrong:['3 m','150 m','15 m'],explain:"d = v² ÷ (2g) = 30² ÷ (2×10) = 900 ÷ 20 = 45 m. Rearranging v² = 2gd gives d = v²/(2g). Practice rearranging for every variable — you'll be asked to solve for all of them!"},
+  {q:'A car travels 240 m in 8 seconds. What is its average speed?',hint:'s = d ÷ t',ans:'30 m/s',wrong:['1920 m/s','0.033 m/s','2 m/s'],explain:"s = d ÷ t = 240 ÷ 8 = 30 m/s. Divide total distance by total time. Units: meters ÷ seconds = m/s. Always check that your units work out — that's how you verify you used the right formula!"},
+  {q:'An object goes from 4 m/s to 16 m/s in 3 seconds. What is the acceleration?',hint:'a = (vf − vi) ÷ t',ans:'4 m/s²',wrong:['12 m/s²','5.3 m/s²','20 m/s²'],explain:"a = (vf - vi) ÷ t = (16 - 4) ÷ 3 = 12 ÷ 3 = 4 m/s². Subtract INITIAL from FINAL velocity first, then divide by time. Unit: m/s² (meters per second, per second)."},
+  {q:'An object starts at 5 m/s and accelerates at 2 m/s² for 6 seconds. Final velocity?',hint:'vf = vi + (a × t)',ans:'17 m/s',wrong:['12 m/s','60 m/s','7 m/s'],explain:"vf = vi + at = 5 + (2 × 6) = 5 + 12 = 17 m/s. Starting speed plus (acceleration × time). Use this when you know initial speed, acceleration, and time and need final speed!"},
+  {q:'A 5 kg object has a net force of 20 N on it. What is its acceleration?',hint:'a = F ÷ m  (rearrange F = ma)',ans:'4 m/s²',wrong:['100 m/s²','0.25 m/s²','25 m/s²'],explain:"a = F ÷ m = 20 ÷ 5 = 4 m/s². Rearrange F = ma → a = F/m. Check units: N ÷ kg = (kg·m/s²) ÷ kg = m/s². Unit analysis confirms you did it right!"},
+  {q:'What is the weight of a 60 kg person on Earth? (g = 10 m/s²)',hint:'W = m × g',ans:'600 N',wrong:['60 N','6 N','6000 N'],explain:"W = mg = 60 × 10 = 600 N. Weight is a FORCE in Newtons — not the same as mass! Same person on the Moon (g ≈ 1.6): W = 60 × 1.6 = 96 N. Mass stays 60 kg. Weight depends on gravity!"},
+  {q:'Coefficient of friction μ = 0.4, normal force = 50 N. What is the friction force?',hint:'Ff = μ × N',ans:'20 N',wrong:['50.4 N','125 N','0.008 N'],explain:"Ff = μN = 0.4 × 50 = 20 N. Friction force = coefficient × normal force. μ is unitless (it's just a ratio). Rubber on concrete μ ≈ 0.8, ice on steel μ ≈ 0.03 — explains why ice is so slippery!"},
+  {q:'A 3 kg object accelerates at 6 m/s². What net force is acting on it?',hint:'F = m × a',ans:'18 N',wrong:['2 N','9 N','0.5 N'],explain:"F = ma = 3 × 6 = 18 N. The most used formula in mechanics! Mass in kg, acceleration in m/s², force in Newtons. If you know any two, solve for the third by simple algebra."},
+  {q:'A 2 kg ball moves at 6 m/s. What is its kinetic energy?',hint:'KE = ½ × m × v²',ans:'36 J',wrong:['12 J','72 J','6 J'],explain:"KE = ½mv² = ½ × 2 × 6² = ½ × 2 × 36 = 36 J. SQUARE velocity FIRST — that's the most common mistake! Same ball at 12 m/s: KE = ½ × 2 × 144 = 144 J — four times more energy for twice the speed."},
+  {q:'A 4 kg rock is 5 m above the ground. What is its gravitational PE? (g = 10 m/s²)',hint:'PE = m × g × h',ans:'200 J',wrong:['20 J','2000 J','50 J'],explain:"PE = mgh = 4 × 10 × 5 = 200 J. All three values multiply: mass × g × height. When the rock hits the ground (h=0), all 200 J becomes kinetic energy (if no air resistance)."},
+  {q:'A force of 30 N moves an object 4 m in the same direction. How much work is done?',hint:'W = F × d',ans:'120 J',wrong:['34 J','7.5 J','26 J'],explain:"W = Fd = 30 × 4 = 120 J. Work = force × displacement (in same direction). Unit: Joule (J) = Newton × meter. If you push a wall and it doesn't move, d = 0 → W = 0, no matter how hard you push!"},
+  {q:'400 J of work is done in 8 seconds. What is the power output?',hint:'P = W ÷ t',ans:'50 W',wrong:['3200 W','0.02 W','392 W'],explain:"P = W/t = 400 ÷ 8 = 50 W. Power = work done per second. Unit: Watt (W) = J/s. A 50 W output is about half a light bulb's worth — respectable for a person doing physical work!"},
+  {q:'A circuit has voltage 12 V and resistance 3 Ω. What is the current?',hint:'I = V ÷ R  (rearrange V = IR)',ans:'4 A',wrong:['36 A','0.25 A','9 A'],explain:"I = V/R = 12 ÷ 3 = 4 A. Rearrange Ohm's Law V = IR → I = V/R. Current in Amperes (A), voltage in Volts (V), resistance in Ohms (Ω). More resistance → less current for the same voltage."},
+  {q:'A device draws 5 A at 120 V. What is its power consumption?',hint:'P = I × V',ans:'600 W',wrong:['24 W','115 W','125 W'],explain:"P = IV = 5 × 120 = 600 W. Electric power = current × voltage. A 600 W device uses 600 joules every second. This is how you read appliance ratings and calculate electricity usage!"},
+  {q:'A circuit has 9 V and draws 3 A. What is the resistance?',hint:'R = V ÷ I  (rearrange V = IR)',ans:'3 Ω',wrong:['27 Ω','0.33 Ω','6 Ω'],explain:"R = V/I = 9 ÷ 3 = 3 Ω. Resistance in Ohms (Ω). This is how you find the resistance of any unknown component — measure voltage across it and current through it, divide!"},
 ];
 
 function startFormulaGame(){
@@ -1083,6 +1673,7 @@ function loadNextFormula(){
 }
 function handleFormulaChoice(btn,isCorrect,container,q){
   container.querySelectorAll('.choice-btn').forEach(b=>b.onclick=null);
+  trackQ(q.q,'formula','Formula Frenzy',isCorrect);
   if(isCorrect){
     btn.classList.add('correct');ffScore++;ffTotal++;
     document.getElementById('ff-score-badge').textContent=ffScore+' correct';
@@ -1281,6 +1872,43 @@ const lrBank=[
   {q:'A wave completes 40 oscillations in 8 seconds. What is its frequency?',type:'mc',choices:['5 Hz','320 Hz','0.2 Hz','48 Hz'],ans:0,explain:"f = oscillations ÷ time = 40 ÷ 8 = 5 Hz. Easy! Frequency is always: how many waves ÷ how many seconds."},
   {q:'Which EM wave is used in microwave ovens?',type:'mc',choices:['Radio waves','Infrared','Microwaves','Visible light'],ans:2,explain:"Microwaves! They have just the right frequency to make water molecules vibrate really fast, which heats up your food. That's why food with more water heats faster in a microwave. Foods with no water (like ceramic) don't heat up — only the food does!"},
   {q:'Momentum conservation means: total momentum BEFORE a collision = total momentum AFTER.',type:'tf',ans:true,explain:"Exactly! No matter what type of collision — elastic, inelastic, perfectly inelastic — the total momentum of the whole system is conserved. You can always write: m₁v₁ + m₂v₂ = m₁v₁' + m₂v₂' (or (m₁+m₂)v' if they stick)."},
+  {q:'In projectile motion, the horizontal and vertical components of motion are completely independent.',type:'tf',ans:true,explain:"This is THE key insight of projectile motion! Gravity only affects the vertical component (9.8 m/s² downward). Horizontal motion is unaffected and stays constant. You analyze each direction separately, then combine — that's how you solve any projectile problem!"},
+  {q:'Gravitational force INCREASES as the distance between two objects increases.',type:'tf',ans:false,explain:"The opposite! F = Gm₁m₂/r² — as distance (r) increases, r² gets bigger and F gets SMALLER. Gravity follows an inverse square law: double the distance = one quarter the force. This is why astronauts feel weightless far from Earth!"},
+  {q:'All objects in free fall near Earth\'s surface accelerate at the same rate, regardless of mass.',type:'tf',ans:true,explain:"Yes! Galileo proved this. On the Moon (no air), a feather and a hammer fall identically. On Earth, air resistance makes heavy objects seem to fall faster, but in a vacuum all objects accelerate at exactly 9.8 m/s² downward."},
+  {q:'In projectile motion, the vertical component behaves exactly like free fall.',type:'tf',ans:true,explain:"Exactly right! Vertically, a projectile is in free fall the whole time — accelerating downward at g = 9.8 m/s². Whether you drop a ball or fire it horizontally, the vertical fall is identical. That's why both hit the ground at the same time!"},
+  {q:'Doubling the distance between two objects makes gravity 4 times weaker.',type:'tf',ans:true,explain:"Yes — inverse square law! F ∝ 1/r². Double r → r² becomes 4× → F becomes ¼ as strong (4× weaker). This same pattern applies to light intensity, electric force, and many other physical phenomena. One of the most important relationships in all of physics!"},
+  {q:'Newton\'s Law of Universal Gravitation is F = Gm₁m₂/r².',type:'tf',ans:true,explain:"That's the formula! F = gravitational force, G = 6.674×10⁻¹¹ N·m²/kg² (universal constant), m₁ and m₂ = the two masses, r = distance between their centers. It applies to any two objects with mass, anywhere in the universe."},
+  {q:'What is the free fall distance formula from rest?',type:'mc',choices:['d = g × t','d = ½ × g × t²','d = v × t','d = g ÷ t²'],ans:1,explain:"d = ½gt²! Square t first, then multiply by ½g. After 1s: 4.9 m, after 2s: 19.6 m, after 3s: 44.1 m. Distance grows rapidly because you accelerate the entire way down!"},
+  {q:"According to Newton's Universal Gravitation, if one mass TRIPLES, the gravitational force...",type:'mc',choices:['Triples','Stays the same','Increases 9 times','Drops to one third'],ans:0,explain:"Mass has a DIRECT relationship in F = Gm₁m₂/r². Triple m₁ → F triples. Compare to distance: triple r → F drops to 1/9. Mass is linear, distance is inverse-square — two very different effects!"},
+  {q:'A ball launched horizontally and one dropped from the same height — which hits the ground first?',type:'mc',choices:['The launched ball','The dropped ball','They hit at the same time','Depends on launch speed'],ans:2,explain:"Same time! Both have zero initial vertical velocity and the same gravitational acceleration downward. The launched ball travels farther horizontally, but falls at the exact same vertical rate. Classic demonstration of independent motion components!"},
+  {q:"What is g, the gravitational acceleration near Earth's surface?",type:'mc',choices:['6.67 × 10⁻¹¹ m/s²','9.8 m/s²','10.8 m/s²','3.8 m/s²'],ans:1,explain:"g = 9.8 m/s² near Earth's surface (rounded to 10 for easy calculations). Don't confuse with G (the universal constant, 6.674×10⁻¹¹ — a completely different thing). g is Earth-specific and varies slightly by altitude and location."},
+  {q:'When would you use v² = 2gd instead of v = gt for free fall?',type:'mc',choices:['When you know time but not distance','When you know distance but not time','When the object moves horizontally','When mass is unknown'],ans:1,explain:"Use v² = 2gd when you know distance but NOT time! Use v = gt when you know time. Use d = ½gt² when you know time and want distance. Choosing the right formula based on what you're given is the real skill in free fall problems!"},
+  {q:'Velocity is a vector quantity — it includes both magnitude and direction.',type:'tf',ans:true,explain:"Yes! Velocity = speed + direction. 30 m/s north and 30 m/s south are the SAME speed but OPPOSITE velocities. Speed is scalar (just size). Velocity is vector (size + direction). This distinction matters: you can be moving at constant speed but constantly changing velocity (like in a circle)!"},
+  {q:'Displacement and distance always have the same value.',type:'tf',ans:false,explain:"Not always! Distance = total path length (always positive). Displacement = straight-line from start to finish (can be zero or negative). Walk 10 m east then 10 m west: distance = 20 m, displacement = 0 m. They're equal only when you move in a straight line in one direction."},
+  {q:'The slope of a velocity-time graph equals acceleration.',type:'tf',ans:true,explain:"Yes! Slope = Δvelocity/Δtime = acceleration. Flat horizontal line = constant velocity (zero acceleration). Steep upward line = large acceleration. Downward line = negative acceleration (slowing down). On a position-time graph, slope = velocity. Different graph, different meaning of slope!"},
+  {q:'Newton\'s First Law is also called the Law of Inertia.',type:'tf',ans:true,explain:"Yes! Objects at rest stay at rest; objects in motion stay in motion at constant velocity — UNLESS a net force acts on them. Inertia is resistance to change. More mass = more inertia = harder to start or stop. This is why big trucks take much longer to stop than bicycles!"},
+  {q:'Action and reaction forces in Newton\'s Third Law act on the SAME object.',type:'tf',ans:false,explain:"They act on DIFFERENT objects! You push the wall (action on wall), wall pushes you (reaction on you). A rocket pushes exhaust backward (action on gas), gas pushes rocket forward (reaction on rocket). They can\'t cancel because they\'re on different objects — canceling requires equal and opposite forces on the SAME object!"},
+  {q:'Weight and mass are the same measurement in different units.',type:'tf',ans:false,explain:"They\'re completely different things! Mass = amount of matter, in kg, constant everywhere. Weight = gravitational force on that mass, in Newtons (N), varies by location. W = mg. Your 60 kg mass stays 60 kg on the Moon, but your weight drops from ~588 N to ~98 N because g is much smaller there!"},
+  {q:'When an object moves but returns to its starting point, the net work done is zero.',type:'tf',ans:true,explain:"Yes! W = F × d uses DISPLACEMENT, not total distance. If you end up where you started, displacement = 0, so net work = 0. Also, forces perpendicular to motion do zero work (normal force never does work on horizontal movement — it\'s always perpendicular)."},
+  {q:'If you double an object\'s speed, its kinetic energy doubles.',type:'tf',ans:false,explain:"QUADRUPLES, not doubles! KE = ½mv². Speed is SQUARED. Double v → v² becomes 4× → KE becomes 4×. This is why stopping distance increases so dramatically with speed. At 60 mph you have 4× the kinetic energy of 30 mph — that\'s 4× the stopping distance!"},
+  {q:'The Law of Conservation of Energy states energy can be created from nothing.',type:'tf',ans:false,explain:"Energy is NEVER created or destroyed — only CONVERTED! KE becomes PE, PE becomes KE, both become heat (friction), sound, or electricity. Total always stays constant in a closed system. When a ball hits the floor and doesn\'t bounce back up, KE became heat and sound — not destroyed!"},
+  {q:'Like charges (both positive or both negative) attract each other.',type:'tf',ans:false,explain:"Like charges REPEL! Same charges push each other away. Opposite charges attract. 'Opposites attract, likes repel.' This is why electrons (negative) stay around the nucleus (positive protons attract them). It\'s also why two positive protons in a nucleus require the strong nuclear force to stay together — they\'re electrically repelling each other!"},
+  {q:'Conservation of charge means total charge in a closed system stays constant.',type:'tf',ans:true,explain:"Yes! Charge is never created or destroyed — only transferred. Rub a balloon on your hair: electrons move from hair to balloon. Hair becomes + , balloon becomes −. Total charge in the system is unchanged — electrons just moved. This law holds true in every known physical process!"},
+  {q:'In a parallel circuit, all components experience the same voltage.',type:'tf',ans:true,explain:"Yes! Each branch in parallel connects directly to both terminals of the source — so every branch gets the full voltage. That\'s why household wiring is parallel: every outlet gets full 120V independently. Series divides voltage among components; parallel gives each the full voltage!"},
+  {q:'What does the slope of a position-time graph represent?',type:'mc',choices:['Acceleration','Displacement','Velocity','Distance'],ans:2,explain:"Slope = Δposition/Δtime = velocity! Steep slope = fast. Horizontal line = stopped. Straight upward slope = constant velocity. Curve that gets steeper = accelerating. Learn to identify: flat = rest, straight = constant v, curved = acceleration. Velocity-time graph slope = acceleration."},
+  {q:'What is the formula for acceleration?',type:'mc',choices:['a = v × t','a = d ÷ t','a = (vf − vi) ÷ t','a = F × m'],ans:2,explain:"a = (vf - vi) ÷ t. Final minus initial velocity, divided by time. Units: m/s². Positive = speeding up. Negative = slowing down. Zero = constant velocity. Any change in velocity — speeding up, slowing down, or changing direction — is acceleration!"},
+  {q:'A car goes around a circular track at constant speed. Is it accelerating?',type:'mc',choices:['No — speed is constant so there is no acceleration','Yes — direction constantly changes so velocity changes','No — acceleration requires a change in speed','Only if the track is banked'],ans:1,explain:"YES, it\'s accelerating! Velocity includes direction — constant direction change = constant velocity change = acceleration. This centripetal acceleration always points toward the center of the circle. Speed constant, but velocity (and therefore acceleration) is definitely not zero!"},
+  {q:'What does Newton\'s Second Law (F = ma) tell us?',type:'mc',choices:['Objects resist changes in motion','Force equals mass times acceleration','Every action has a reaction','Acceleration depends only on mass'],ans:1,explain:"F = ma: net force = mass × acceleration. Triple force → triple acceleration (same mass). Double mass → half acceleration (same force). The unit Newton (N) = kg·m/s² comes directly from this equation. It is the most-used formula in all of mechanics!"},
+  {q:'In which situation is an object in EQUILIBRIUM?',type:'mc',choices:['When it moves in a circle','When net force = 0','When it accelerates','When it has very high inertia'],ans:1,explain:"Equilibrium: net force = 0, no acceleration! Object is either still OR moving at constant velocity. A book on a table (gravity balanced by normal force), an airplane in level constant-speed flight, a hanging lamp — all in equilibrium. Equilibrium does NOT mean motionless!"},
+  {q:'What is the SI unit of force?',type:'mc',choices:['Kilogram (kg)','Joule (J)','Newton (N)','Pascal (Pa)'],ans:2,explain:"The Newton (N), named after Isaac Newton. 1 N = 1 kg·m/s² — the force that gives 1 kg an acceleration of 1 m/s². Your weight in Newtons ≈ 10 × your mass in kg (on Earth). A 50 kg student weighs about 490 N (using g = 9.8) or roughly 500 N (using g = 10)."},
+  {q:'What is the formula for kinetic energy?',type:'mc',choices:['KE = mv','KE = mgh','KE = ½mv²','KE = Fd'],ans:2,explain:"KE = ½mv² — square velocity first! A 2 kg ball at 4 m/s: KE = ½(2)(16) = 16 J. Same ball at 8 m/s: KE = ½(2)(64) = 64 J — four times more energy for twice the speed. This squared relationship is why fast impacts are so much more destructive than slow ones!"},
+  {q:'At the bottom of a frictionless roller coaster, which mechanical energy is greatest?',type:'mc',choices:['Potential Energy','Kinetic Energy','They are always equal','Electrical Energy'],ans:1,explain:"Maximum speed = maximum KE! At the bottom (h = 0), all potential energy has converted to kinetic energy. This is where the coaster goes fastest. At the top (max height), it has maximum PE and minimum KE. Total mechanical energy = PE + KE stays constant throughout (conservation of energy)!"},
+  {q:'What is the formula for power?',type:'mc',choices:['P = F × d','P = m × a','P = W ÷ t','P = ½mv²'],ans:2,explain:"P = W/t — power = work divided by time. Unit: Watt = Joule/second. Two people can do the same total work, but the faster one is more powerful. A 1000 W motor does work twice as fast as a 500 W motor. Your body produces roughly 80–100 W during moderate sustained activity!"},
+  {q:'Which subatomic particle carries a negative charge?',type:'mc',choices:['Proton','Neutron','Electron','Nucleus'],ans:2,explain:"Electrons are negative! Protons are positive, neutrons are neutral. Atoms with equal protons and electrons are neutral. Gaining electrons → negative ion (anion). Losing electrons → positive ion (cation). Static electricity = electrons transferred from one object to another by friction!"},
+  {q:'If resistance doubles and voltage stays constant (V = IR), current...',type:'mc',choices:['Doubles','Quadruples','Halves','Stays the same'],ans:2,explain:"I = V/R. If R doubles and V is constant: I = V/(2R) = half the original. More resistance = less current for the same voltage. A dimmer switch works exactly this way — it adds resistance to reduce current to the bulb, making it dimmer!"},
+  {q:'What is the unit of electrical resistance?',type:'mc',choices:['Ampere (A)','Volt (V)','Watt (W)','Ohm (Ω)'],ans:3,explain:"Ohm (Ω), named after Georg Ohm! Current = Amperes (A). Voltage = Volts (V). Resistance = Ohms (Ω). Power = Watts (W). Know all four units cold — they show up in every electricity problem. V = IR connects the first three; P = IV connects current and voltage to power."},
+  {q:'What does a hypothesis need to be in order to be valid science?',type:'mc',choices:['True','Testable and falsifiable','Written by a certified scientist','Already supported by data'],ans:1,explain:"A hypothesis must be TESTABLE (you can design an experiment to check it) and FALSIFIABLE (it\'s possible to prove it wrong). 'The planet is held up by invisible forces' can\'t be tested. 'Heavier objects fall faster' CAN be tested — and Galileo proved it false (in vacuum, all objects fall equally)!"},
+  {q:'kilo- is a metric prefix meaning...',type:'mc',choices:['1/1000 of the base unit','100 times the base unit','1000 times the base unit','1,000,000 times the base unit'],ans:2,explain:"kilo = 1000! 1 kilometer = 1000 meters. 1 kilogram = 1000 grams. 1 kilowatt = 1000 watts. Key prefixes: milli (1/1000), centi (1/100), kilo (1000), mega (10⁶), giga (10⁹). Going pico → nano → micro → milli → base → kilo → mega → giga → tera."},
 ];
 let lrQs=[],lrIdx=0,lrScore=0,lrStreak=0,lrMulti=1,lrTimer=null,lrTimeLeft=30,lrAnswered=false;
 function startLightning(){
@@ -1333,6 +1961,7 @@ function handleLR(btn,isCorrect,q,container){
   lrAnswered=true;
   if(lrTimer){clearInterval(lrTimer);lrTimer=null;}
   container.querySelectorAll('button').forEach(b=>b.onclick=null);
+  trackQ(q.q,q.topic||'mixed','Lightning',isCorrect);
   if(isCorrect){
     btn.classList.add('correct');
     lrStreak++;lrMulti=Math.min(3,1+Math.floor(lrStreak/3));
@@ -1358,6 +1987,7 @@ function markCorrectLR(container,q){
 function timeoutLR(container,q){
   lrAnswered=true;
   if(lrTimer){clearInterval(lrTimer);lrTimer=null;}
+  trackQ(q.q,q.topic||'mixed','Lightning',false);
   markCorrectLR(container,q);
   lrStreak=0;lrMulti=1;
   document.getElementById('lr-streak').textContent=0;
@@ -1393,7 +2023,7 @@ function promptLBEntry(game,score){
     document.getElementById('lb-entry-game').textContent=game+' — Final Score';
     document.getElementById('lb-entry-score-val').textContent=score.toLocaleString();
     document.getElementById('lb-entry-score-val').style.color=
-      game==='Pac-Man'?'var(--cyan)':game==='Formula'?'var(--orange)':'var(--green)';
+      game==='Pac-Man'?'var(--cyan)':game==='Formula'?'var(--orange)':game==='Asteroids'?'var(--purple)':game==='FBD Builder'?'var(--orange2)':'var(--green)';
     // Show GIF + confetti if top 10
     const isTop=isTopTen(score);
     const gif=document.getElementById('lb-gif');
@@ -1440,7 +2070,7 @@ function renderLB(filter,btn){
     tr.innerHTML=`<td class="lb-rank ${rankClass}">${i===0?'🥇':i===1?'🥈':i===2?'🥉':'#'+(i+1)}</td>
       <td class="lb-name" style="color:var(--cyan)">${s.name}</td>
       <td><span class="lb-game-tag">${s.game}</span></td>
-      <td class="lb-pts" style="color:${s.game==='Pac-Man'?'var(--cyan)':s.game==='Formula'?'var(--orange)':'var(--green)'}">${s.score.toLocaleString()}</td>
+      <td class="lb-pts" style="color:${s.game==='Pac-Man'?'var(--cyan)':s.game==='Formula'?'var(--orange)':s.game==='Asteroids'?'var(--purple)':s.game==='FBD Builder'?'var(--orange2)':'var(--green)'}">${s.score.toLocaleString()}</td>
       <td style="text-align:right;color:var(--text2);font-size:.75rem">${s.date}</td>`;
     tbody.appendChild(tr);
   });
@@ -1448,11 +2078,110 @@ function renderLB(filter,btn){
 
 function clearLB(){if(confirm('Clear all high scores?')){localStorage.removeItem('physicsLB');renderLB('all');}}
 
+// ===== QUESTION TRACKER =====
+const topicColors={waves:'#00f5ff',sound:'#00f5ff',em:'#b44fff',momentum:'#ff6b00',gravity:'#39ff14',motion:'#ff88cc',forces:'#ffdd44',energy:'#00ccff',electric:'#ff6688',formula:'#ff9500',mixed:'#8888aa'};
+
+function getQT(){try{return JSON.parse(localStorage.getItem('physicsQT')||'{}');}catch(e){return{};}}
+function saveQT(d){localStorage.setItem('physicsQT',JSON.stringify(d));}
+function qKey(text){return text.toLowerCase().replace(/[^a-z0-9]/g,'').slice(0,60);}
+
+function trackQ(qText,topic,game,isCorrect){
+  const d=getQT();
+  const k=qKey(qText);
+  if(!d[k])d[k]={q:qText,topic:topic||'mixed',game,attempts:0,correct:0};
+  d[k].attempts++;
+  if(isCorrect)d[k].correct++;
+  saveQT(d);
+}
+
+let _tSort={col:'rate',dir:-1},_tFilter='all';
+
+function renderTracker(filter,btn){
+  if(filter)_tFilter=filter;
+  if(btn){document.querySelectorAll('.tracker-filter').forEach(b=>b.classList.remove('active-filter'));btn.classList.add('active-filter');}
+
+  // Build master map: answered records + every unanswered question from all banks
+  const raw=getQT();
+  const map={};
+  Object.values(raw).forEach(r=>{map[qKey(r.q)]=r;});
+  const banks=[
+    ...physicsQuestions.map(q=>({q:q.q,topic:q.topic,game:'Pac-Man'})),
+    ...formulaQs.map(q=>({q:q.q,topic:'formula',game:'Formula Frenzy'})),
+    ...lrBank.map(q=>({q:q.q,topic:q.topic||'mixed',game:'Lightning'}))
+  ];
+  banks.forEach(b=>{const k=qKey(b.q);if(!map[k])map[k]={q:b.q,topic:b.topic,game:b.game,attempts:0,correct:0};});
+
+  // Stats
+  const all=Object.values(map);
+  const seen=all.filter(r=>r.attempts>0);
+  const totAttempts=seen.reduce((s,r)=>s+r.attempts,0);
+  const totCorrect=seen.reduce((s,r)=>s+r.correct,0);
+  const rate=totAttempts?Math.round(totCorrect/totAttempts*100):0;
+  const rateColor=rate>=75?'var(--green)':rate>=50?'var(--orange2)':'var(--red)';
+  document.getElementById('tracker-stats-row').innerHTML=
+    stat(all.length,'Total Questions','var(--cyan)')+
+    stat(seen.length,'Attempted','var(--orange)')+
+    stat(totCorrect,'Correct','var(--green)')+
+    stat(totAttempts?rate+'%':'—','Pass Rate',totAttempts?rateColor:'var(--text2)')+
+    stat(all.length-seen.length,'Not Seen','var(--text2)');
+
+  // Filter rows
+  let rows=[...all];
+  if(_tFilter==='pass')rows=rows.filter(r=>r.attempts>0&&r.correct/r.attempts>=0.75);
+  else if(_tFilter==='fail')rows=rows.filter(r=>r.attempts>0&&r.correct/r.attempts<0.75);
+  else if(_tFilter==='unseen')rows=rows.filter(r=>r.attempts===0);
+
+  // Sort
+  const {col,dir}=_tSort;
+  rows.sort((a,b)=>{
+    let va,vb;
+    if(col==='q'){va=a.q.toLowerCase();vb=b.q.toLowerCase();}
+    else if(col==='topic'){va=a.topic||'';vb=b.topic||'';}
+    else if(col==='game'){va=a.game||'';vb=b.game||'';}
+    else if(col==='attempts'){va=a.attempts;vb=b.attempts;}
+    else if(col==='correct'){va=a.correct;vb=b.correct;}
+    else{va=a.attempts?a.correct/a.attempts:-1;vb=b.attempts?b.correct/b.attempts:-1;}
+    return va<vb?dir:va>vb?-dir:0;
+  });
+
+  // Render sort arrows
+  ['q','topic','game','attempts','correct','rate'].forEach(c=>{
+    const el=document.getElementById('th-'+c);if(!el)return;
+    el.classList.toggle('th-sorted',c===col);
+    const arrow=el.querySelector('.sort-arrow');
+    if(arrow)arrow.textContent=c===col?(dir===-1?'↓':'↑'):'↕';
+  });
+
+  // Render rows
+  const tbody=document.getElementById('tracker-tbody');tbody.innerHTML='';
+  document.getElementById('tracker-empty').style.display=rows.length?'none':'block';
+  rows.forEach(r=>{
+    const pct=r.attempts?Math.round(r.correct/r.attempts*100):-1;
+    const rowCls=r.attempts===0?'pass-none':pct>=75?'pass-high':pct>=50?'pass-mid':'pass-low';
+    const pctStr=r.attempts===0?'—':pct+'%';
+    const pctColor=r.attempts===0?'var(--text2)':pct>=75?'var(--green)':pct>=50?'var(--orange2)':'var(--red)';
+    const tc=topicColors[r.topic]||'var(--text2)';
+    const qShort=r.q.length>72?r.q.slice(0,70)+'…':r.q;
+    const tr=document.createElement('tr');tr.className=rowCls;
+    tr.innerHTML=`<td class="q-text-cell" title="${r.q.replace(/"/g,"'")}">${qShort}</td>
+      <td><span class="topic-pill" style="background:${tc}22;color:${tc};border:1px solid ${tc}44">${r.topic||'mixed'}</span></td>
+      <td style="color:var(--text2);font-size:.73rem">${r.game}</td>
+      <td style="text-align:right;font-family:'Orbitron',sans-serif;font-size:.78rem">${r.attempts||'—'}</td>
+      <td style="text-align:right;font-family:'Orbitron',sans-serif;font-size:.78rem;color:var(--green)">${r.correct||'—'}</td>
+      <td style="text-align:right;font-family:'Orbitron',sans-serif;font-size:.82rem;font-weight:700;color:${pctColor}">${pctStr}</td>`;
+    tbody.appendChild(tr);
+  });
+}
+function stat(val,label,color){return`<div class="tracker-stat"><div class="tracker-stat-val" style="color:${color}">${val}</div><div class="tracker-stat-label">${label}</div></div>`;}
+function sortTracker(col){if(_tSort.col===col)_tSort.dir*=-1;else{_tSort.col=col;_tSort.dir=-1;}renderTracker();}
+function clearTracker(){if(confirm('Reset all question tracking data?')){localStorage.removeItem('physicsQT');renderTracker();}}
+
 // Cleanup helper — stops any running game timers/loops
 function _gameCleanup(){
   try{pacStop();}catch(e){}
   try{if(typeof ffTimer!=='undefined'&&ffTimer){clearInterval(ffTimer);ffTimer=null;ffPaused=false;}}catch(e){}
   try{if(typeof lrTimer!=='undefined'&&lrTimer){clearInterval(lrTimer);lrTimer=null;}}catch(e){}
+  try{if(typeof astRunning!=='undefined'&&astRunning)astStop();}catch(e){}
 }
 
 // Render LB whenever the leaderboard screen is shown; manage history for back-button support
