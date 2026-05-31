@@ -898,7 +898,7 @@ function checkAstHits(){
   astBullets.forEach(b=>{
     if(b.life<=0)return;
     astAsteroids.forEach(a=>{
-      if(!a.alive)return;
+      if(!a.alive||b.life<=0)return;
       if(Math.hypot(b.x-a.x,b.y-a.y)<a.size){
         b.life=0;a.alive=false;astExplode(a);
         if(a.isCorrect){
@@ -2206,7 +2206,7 @@ window.showScreen=function(id){
 window.addEventListener('popstate',function(e){
   _suppressPush=true;
   _gameCleanup();
-  _origShow('hub');
+  window.showScreen('hub');
   _suppressPush=false;
 });
 
