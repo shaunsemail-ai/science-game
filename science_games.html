@@ -817,6 +817,7 @@ function initAsteroids(){
   astLoop();
 }
 function astKD(e){
+  if(astExplaining)return;
   astKeys[e.key]=true;
   if(e.key===' '){e.preventDefault();fireAst();}
   if(e.key==='b'||e.key==='B'){e.preventDefault();fireBomb();}
