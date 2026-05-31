@@ -1422,8 +1422,16 @@ function renderLB(filter,btn){
 
 function clearLB(){if(confirm('Clear all high scores?')){localStorage.removeItem('physicsLB');renderLB('all');}}
 
-// Render LB whenever the leaderboard screen is shown
+// Cleanup helper — stops any running game timers/loops
+function _gameCleanup(){
+  try{pacStop();}catch(e){}
+  try{if(typeof ffTimer!=='undefined'&&ffTimer){clearInterval(ffTimer);ffTimer=null;ffPaused=false;}}catch(e){}
+  try{if(typeof lrTimer!=='undefined'&&lrTimer){clearInterval(lrTimer);lrTimer=null;}}catch(e){}
+}
+
+// Render LB whenever the leaderboard screen is shown; manage history for back-button support
 const _origShow=showScreen;
+let _suppressPush=false;
 window.showScreen=function(id){
   // Dismiss any open narrator without firing its callback when switching screens
   const overlay=document.getElementById('narrator-overlay');
@@ -1433,7 +1441,22 @@ window.showScreen=function(id){
   }
   _origShow(id);
   if(id==='leaderboard-screen')renderLB('all',document.querySelector('[data-game="all"]'));
+  // Push a history entry when entering any non-hub screen so back returns to hub
+  if(id!=='hub'&&!_suppressPush){
+    history.pushState({screen:id},'',location.href);
+  }
 };
+
+// Handle browser/phone back button
+window.addEventListener('popstate',function(e){
+  _suppressPush=true;
+  _gameCleanup();
+  _origShow('hub');
+  _suppressPush=false;
+});
+
+// Seed initial history state so the very first back press is caught
+history.replaceState({screen:'hub'},'',location.href);
 </script>
 </body>
 </html>
