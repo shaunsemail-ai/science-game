@@ -780,6 +780,7 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellips
 // Two asteroid types: gray rocks (break large→med→small, always shoot) + purple answer asteroids (labeled, shoot correct one)
 let astCanvas,astCtx,astAnim,astShip,astBullets,astRocks,astAnswerAsts,astParticles;
 let astScore,astLives,astQNum,astRunning,astKeys={},astCurrentQ,astExplaining,astInvTimer=0;
+let astW=0,astH=0;
 
 function startAsteroids(){
   document.getElementById('ast-intro').style.display='none';
@@ -789,14 +790,17 @@ function startAsteroids(){
 }
 function initAsteroids(){
   astCanvas=document.getElementById('ast-canvas');
-  const W=Math.min((astCanvas.parentElement.offsetWidth||window.innerWidth||360)-20,720);
-  const H=Math.round(W*0.62);
-  astCanvas.width=W;astCanvas.height=H;
+  const dpr=window.devicePixelRatio||1;
+  astW=Math.min((astCanvas.parentElement.offsetWidth||window.innerWidth||360)-20,960);
+  astH=Math.round(astW*0.62);
+  astCanvas.width=Math.round(astW*dpr);astCanvas.height=Math.round(astH*dpr);
+  astCanvas.style.width=astW+'px';astCanvas.style.height=astH+'px';
   astCtx=astCanvas.getContext('2d');
+  astCtx.scale(dpr,dpr);
   astScore=0;astLives=3;astQNum=0;astRunning=true;astExplaining=false;astKeys={};astInvTimer=0;
-  astShip={x:W/2,y:H/2,angle:-Math.PI/2,vx:0,vy:0,thrusting:false};
+  astShip={x:astW/2,y:astH/2,angle:-Math.PI/2,vx:0,vy:0,thrusting:false};
   astBullets=[];astRocks=[];astAnswerAsts=[];astParticles=[];
-  for(let i=0;i<4;i++)astSpawnRock(W,H,1);
+  for(let i=0;i<4;i++)astSpawnRock(astW,astH,1);
   updateAstUI();
   document.removeEventListener('keydown',astKD);document.removeEventListener('keyup',astKU);
   document.addEventListener('keydown',astKD);document.addEventListener('keyup',astKU);
@@ -832,7 +836,7 @@ function loadAstQ(){
 function spawnAnswerAsts(){
   astExplaining=false;
   document.getElementById('ast-q-bar').textContent=astCurrentQ.q;
-  const W=astCanvas.width,H=astCanvas.height;
+  const W=astW,H=astH;
   astAnswerAsts=[];
   astCurrentQ.choices.forEach((choice,i)=>{
     const edge=Math.floor(Math.random()*4);
@@ -849,7 +853,7 @@ function spawnAnswerAsts(){
 
 function astLoop(){
   if(!astRunning)return;
-  const W=astCanvas.width,H=astCanvas.height,ctx=astCtx;
+  const W=astW,H=astH,ctx=astCtx;
   // Controls
   if(!astExplaining){
     if(astKeys['ArrowLeft']||astKeys['a'])astShip.angle-=0.055;
@@ -986,7 +990,7 @@ function checkAstCollisions(W,H){
 
 // Gray rock: explode particles + spawn smaller rocks
 function astRockExplode(r){
-  const W=astCanvas.width,H=astCanvas.height;
+  const W=astW,H=astH;
   if(r.level<3){astSpawnRock(W,H,r.level+1,r.x,r.y);astSpawnRock(W,H,r.level+1,r.x,r.y);}
   for(let i=0;i<10;i++){const ang=Math.random()*Math.PI*2,sp=0.8+Math.random()*2;astParticles.push({x:r.x,y:r.y,vx:Math.cos(ang)*sp,vy:Math.sin(ang)*sp,life:18+(Math.random()*12|0),ml:30,r:190,g:190,b:215,sz:1.5+Math.random()*2});}
 }
