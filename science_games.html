@@ -321,7 +321,7 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellips
       <div class="game-card c5" onclick="showScreen('asteroids-game')">
         <span class="card-icon">🚀</span>
         <div class="card-title">Physics Asteroids</div>
-        <div class="card-desc">Classic Asteroids! Blast the gray rocks to survive — they break into smaller pieces. Among them float labeled answer asteroids. Shoot the correct one for bonus points, wrong ones cost lives.</div>
+        <div class="card-desc">Pure classic Asteroids — shoot everything to survive! Answer the physics question via A/B/C/D buttons while you play. Correct = earn a 💣 MEGA BOMB that clears the screen. Wrong = lose a life.</div>
       </div>
       <div class="game-card c2" onclick="showScreen('fbd-game')">
         <span class="card-icon">⚖️</span>
@@ -420,29 +420,35 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellips
       <div id="ast-intro" class="game-intro">
         <div class="intro-icon">🚀</div>
         <div class="intro-title" style="color:var(--purple)">Physics Asteroids</div>
-        <div class="intro-desc">Classic Asteroids — but with a twist!<br><br>
-          <strong style="color:rgba(190,190,215,.9)">Gray rocks</strong> break into smaller pieces when shot and will destroy your ship on contact — shoot them all to survive!<br><br>
-          <strong style="color:var(--purple)">Purple answer asteroids</strong> carry the answer choices for the current question. <strong style="color:var(--green)">Shoot the correct one</strong> for bonus points. <strong style="color:var(--red)">Shoot the wrong one</strong> = lose a life + explanation.<br><br>
-          Rotate: ◄ ► &nbsp;·&nbsp; Thrust: ▲ &nbsp;·&nbsp; Fire: SPACE or tap canvas &nbsp;·&nbsp; 3 lives</div>
+        <div class="intro-desc">Pure classic Asteroids — shoot <strong>everything</strong>, survive!<br><br>
+          Rocks break large → medium → small. Any rock that hits your ship costs a life.<br><br>
+          A question sits above the canvas. Tap <strong style="color:var(--purple)">A / B / C / D</strong> (or press 1–4) to answer anytime while you play.<br><br>
+          <strong style="color:var(--green)">Correct answer</strong> → earn a 💣 MEGA BOMB (press B or tap the bomb button to detonate — clears every rock on screen!).<br>
+          <strong style="color:var(--red)">Wrong answer</strong> → lose a life + explanation.<br><br>
+          Rotate: ◄ ► &nbsp;·&nbsp; Thrust: ▲ &nbsp;·&nbsp; Fire: SPACE &nbsp;·&nbsp; 3 lives</div>
         <button class="btn btn-purple" onclick="startAsteroids()">Launch!</button>
       </div>
       <div id="ast-play" style="display:none">
         <div class="ast-ui">
           <div class="lives-row" id="ast-lives-row"></div>
           <div class="pacman-stat">Score: <span id="ast-score-val">0</span></div>
+          <div class="pacman-stat" style="color:var(--purple)">💣 <span id="ast-bomb-val">0</span></div>
           <div class="pacman-stat">Q: <span id="ast-q-num">0</span></div>
         </div>
         <div id="ast-q-bar" class="ast-q-bar">Loading...</div>
+        <div id="ast-answer-btns" style="display:flex;gap:6px;flex-wrap:wrap;justify-content:center;margin-bottom:8px"></div>
         <canvas id="ast-canvas"></canvas>
-        <p style="text-align:center;color:var(--text2);font-size:.78rem;margin-top:8px">← → rotate &bull; ↑ thrust &bull; SPACE fire &bull; Shoot the <strong style="color:var(--green)">correct</strong> answer!</p>
+        <p style="text-align:center;color:var(--text2);font-size:.78rem;margin-top:8px">← → rotate &bull; ↑ thrust &bull; SPACE fire &bull; <strong style="color:var(--purple)">1–4</strong> answer &bull; <strong style="color:var(--purple)">B</strong> bomb</p>
         <div id="ast-controls">
-          <div style="display:flex;gap:10px;justify-content:center;margin-top:10px">
+          <div style="display:flex;gap:8px;justify-content:center;margin-top:10px;flex-wrap:wrap">
             <button class="ast-btn" id="ast-rot-left">◄</button>
             <button class="ast-btn" id="ast-thrust">▲</button>
             <button class="ast-btn" id="ast-rot-right">►</button>
             <button class="ast-fire-btn" id="ast-fire">FIRE</button>
+            <button class="ast-fire-btn" id="ast-bomb-btn" style="background:rgba(180,79,255,.15);border-color:var(--purple);width:64px">💣</button>
           </div>
-          <p style="text-align:center;color:var(--text2);font-size:.72rem;margin-top:6px">Tap to control</p>
+          <div id="ast-answer-touch" style="display:flex;gap:6px;justify-content:center;margin-top:8px;flex-wrap:wrap"></div>
+          <p style="text-align:center;color:var(--text2);font-size:.72rem;margin-top:6px">Tap to control &bull; tap A/B/C/D to answer</p>
         </div>
       </div>
       <div id="ast-result" style="display:none" class="result-screen">
@@ -777,9 +783,10 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellips
 
 <script>
 // ===== PHYSICS ASTEROIDS =====
-// Two asteroid types: gray rocks (break large→med→small, always shoot) + purple answer asteroids (labeled, shoot correct one)
-let astCanvas,astCtx,astAnim,astShip,astBullets,astRocks,astAnswerAsts,astParticles;
-let astScore,astLives,astQNum,astRunning,astKeys={},astCurrentQ,astExplaining,astInvTimer=0;
+// Shoot ALL rocks (classic Asteroids). Answer the question via A/B/C/D buttons.
+// Correct answer → earn a MEGA BOMB (clears screen). Wrong → lose a life.
+let astCanvas,astCtx,astAnim,astShip,astBullets,astRocks,astParticles;
+let astScore,astLives,astBombs,astQNum,astRunning,astKeys={},astCurrentQ,astExplaining,astInvTimer=0;
 let astW=0,astH=0;
 
 function startAsteroids(){
@@ -797,9 +804,9 @@ function initAsteroids(){
   astCanvas.style.width=astW+'px';astCanvas.style.height=astH+'px';
   astCtx=astCanvas.getContext('2d');
   astCtx.scale(dpr,dpr);
-  astScore=0;astLives=3;astQNum=0;astRunning=true;astExplaining=false;astKeys={};astInvTimer=0;
+  astScore=0;astLives=3;astBombs=0;astQNum=0;astRunning=true;astExplaining=false;astKeys={};astInvTimer=0;
   astShip={x:astW/2,y:astH/2,angle:-Math.PI/2,vx:0,vy:0,thrusting:false};
-  astBullets=[];astRocks=[];astAnswerAsts=[];astParticles=[];
+  astBullets=[];astRocks=[];astParticles=[];
   for(let i=0;i<4;i++)astSpawnRock(astW,astH,1);
   updateAstUI();
   document.removeEventListener('keydown',astKD);document.removeEventListener('keyup',astKU);
@@ -809,10 +816,15 @@ function initAsteroids(){
   if(astAnim)cancelAnimationFrame(astAnim);
   astLoop();
 }
-function astKD(e){astKeys[e.key]=true;if(e.key===' '){e.preventDefault();fireAst();}}
+function astKD(e){
+  astKeys[e.key]=true;
+  if(e.key===' '){e.preventDefault();fireAst();}
+  if(e.key==='b'||e.key==='B'){e.preventDefault();fireBomb();}
+  if(['1','2','3','4'].includes(e.key)){e.preventDefault();handleAstAnswer(parseInt(e.key)-1);}
+}
 function astKU(e){astKeys[e.key]=false;}
 
-// Spawn a regular (unlabeled) rock; level 1=large, 2=medium, 3=small
+// Spawn a gray rock; level 1=large 2=medium 3=small
 function astSpawnRock(W,H,level,ox,oy){
   let x,y,tries=0;
   if(ox!==undefined){x=ox+(Math.random()-.5)*28;y=oy+(Math.random()-.5)*28;}
@@ -825,36 +837,74 @@ function astSpawnRock(W,H,level,ox,oy){
   astRocks.push({x,y,vx:Math.cos(ang)*sp,vy:Math.sin(ang)*sp,level,size:br,verts,rot:Math.random()*Math.PI*2,spin:(Math.random()-.5)*.026,alive:true});
 }
 
-// Load a new question and spawn its 4 labeled answer asteroids
+// Load new question + render answer buttons
 function loadAstQ(){
   const pool=[...physicsQuestions,...lrBank.filter(q=>q.type==='mc')].filter(q=>q.choices&&q.choices.length>=4);
   astCurrentQ=pool[Math.floor(Math.random()*pool.length)];
   astQNum++;document.getElementById('ast-q-num').textContent=astQNum;
-  spawnAnswerAsts();
-}
-// Spawn (or respawn) the 4 labeled answer asteroids for the current question
-function spawnAnswerAsts(){
   astExplaining=false;
   document.getElementById('ast-q-bar').textContent=astCurrentQ.q;
-  const W=astW,H=astH;
-  astAnswerAsts=[];
+  renderAstAnswerBtns();
+}
+
+function renderAstAnswerBtns(){
+  const labels=['A','B','C','D'];
+  // Desktop buttons above canvas
+  const cont=document.getElementById('ast-answer-btns');
+  cont.innerHTML='';
+  // Touch buttons inside controls panel
+  const touch=document.getElementById('ast-answer-touch');
+  if(touch)touch.innerHTML='';
   astCurrentQ.choices.forEach((choice,i)=>{
-    const edge=Math.floor(Math.random()*4);
-    let x,y,vx,vy;const sp=0.45+Math.random()*0.35;
-    if(edge===0){x=40+Math.random()*(W-80);y=-50;vx=(Math.random()-.5)*sp;vy=sp;}
-    else if(edge===1){x=W+50;y=40+Math.random()*(H-80);vx=-sp;vy=(Math.random()-.5)*sp;}
-    else if(edge===2){x=40+Math.random()*(W-80);y=H+50;vx=(Math.random()-.5)*sp;vy=-sp;}
-    else{x=-50;y=40+Math.random()*(H-80);vx=sp;vy=(Math.random()-.5)*sp;}
-    const nv=7+(Math.random()*4|0),br=44+(Math.random()*12|0),verts=[];
-    for(let j=0;j<nv;j++){const a=(j/nv)*Math.PI*2,r=br*(0.65+Math.random()*0.5);verts.push({a,r});}
-    astAnswerAsts.push({x,y,vx,vy,label:choice,isCorrect:i===astCurrentQ.ans,verts,size:br,rot:Math.random()*Math.PI*2,spin:(Math.random()-.5)*.018,alive:true});
+    [cont,touch].forEach(parent=>{
+      if(!parent)return;
+      const btn=document.createElement('button');
+      btn.className='choice-btn';
+      btn.style.cssText='padding:7px 10px;font-size:.78rem;flex:1;min-width:0;max-width:none;border-color:rgba(180,79,255,.4);color:var(--text2)';
+      btn.textContent=labels[i]+': '+choice;
+      btn.onclick=()=>handleAstAnswer(i);
+      parent.appendChild(btn);
+    });
   });
+}
+
+function handleAstAnswer(idx){
+  if(astExplaining||!astCurrentQ)return;
+  const isCorrect=idx===astCurrentQ.ans;
+  trackQ(astCurrentQ.q,astCurrentQ.topic||'mixed','Asteroids',isCorrect);
+  // Disable buttons immediately
+  document.querySelectorAll('#ast-answer-btns .choice-btn,#ast-answer-touch .choice-btn').forEach((b,i)=>{
+    b.onclick=null;
+    if(i===astCurrentQ.ans)b.style.borderColor='var(--green)';
+    else if(i===idx&&!isCorrect)b.style.borderColor='var(--red)';
+  });
+  if(isCorrect){
+    astScore+=200;astBombs=Math.min(astBombs+1,5);updateAstUI();
+    astExplaining=true;
+    showNarrator(true,'Correct! Bomb charged!',astCurrentQ.explain,'Keep shooting!',()=>loadAstQ());
+  } else {
+    astLives=Math.max(0,astLives-1);updateAstUI();
+    if(astLives<=0){setTimeout(()=>endAsteroids(),800);return;}
+    astExplaining=true;
+    showNarrator(false,'Wrong answer!',astCurrentQ.explain,'Got it — keep going!',()=>loadAstQ());
+  }
+}
+
+// Mega bomb — obliterates every rock on screen
+function fireBomb(){
+  if(astBombs<=0||astExplaining)return;
+  astBombs--;updateAstUI();
+  // Explode every rock
+  astRocks.forEach(r=>{if(r.alive){r.alive=false;astRockParticles(r);}});
+  astRocks=[];
+  astScore+=500;updateAstUI();
+  // Big flash effect
+  astParticles.push({x:astW/2,y:astH/2,vx:0,vy:0,life:18,ml:18,r:180,g:79,b:255,sz:Math.max(astW,astH)*2,flash:true});
 }
 
 function astLoop(){
   if(!astRunning)return;
   const W=astW,H=astH,ctx=astCtx;
-  // Controls
   if(!astExplaining){
     if(astKeys['ArrowLeft']||astKeys['a'])astShip.angle-=0.055;
     if(astKeys['ArrowRight']||astKeys['d'])astShip.angle+=0.055;
@@ -868,53 +918,32 @@ function astLoop(){
   if(astShip.x<-12)astShip.x=W+12;if(astShip.x>W+12)astShip.x=-12;
   if(astShip.y<-12)astShip.y=H+12;if(astShip.y>H+12)astShip.y=-12;
   if(astInvTimer>0)astInvTimer--;
-  // Bullets
   astBullets=astBullets.filter(b=>b.life>0);
   astBullets.forEach(b=>{b.x+=b.vx;b.y+=b.vy;b.life--;});
-  // Rocks move + wrap
   astRocks=astRocks.filter(r=>r.alive);
   astRocks.forEach(r=>{r.x+=r.vx;r.y+=r.vy;r.rot+=r.spin;
     if(r.x<-65)r.x=W+65;if(r.x>W+65)r.x=-65;if(r.y<-65)r.y=H+65;if(r.y>H+65)r.y=-65;});
-  // Answer asteroids move + wrap
-  astAnswerAsts.forEach(a=>{if(!a.alive)return;a.x+=a.vx;a.y+=a.vy;a.rot+=a.spin;
-    if(a.x<-65)a.x=W+65;if(a.x>W+65)a.x=-65;if(a.y<-65)a.y=H+65;if(a.y>H+65)a.y=-65;});
-  // Particles
   astParticles=astParticles.filter(p=>p.life>0);
-  astParticles.forEach(p=>{p.x+=p.vx;p.y+=p.vy;p.life--;p.vy+=0.06;});
+  astParticles.forEach(p=>{p.x+=p.vx;p.y+=p.vy;p.life--;if(!p.flash)p.vy+=0.06;});
   if(!astExplaining){checkAstHits();checkAstCollisions(W,H);}
-  // Keep a few rocks on screen for survival pressure
   if(astRocks.length<2&&!astExplaining)for(let i=astRocks.length;i<3;i++)astSpawnRock(W,H,1);
   // ---- DRAW ----
   ctx.fillStyle='#000';ctx.fillRect(0,0,W,H);
+  // Bomb flash
+  const flash=astParticles.find(p=>p.flash);
+  if(flash){const al=flash.life/flash.ml;ctx.fillStyle=`rgba(180,79,255,${al*0.35})`;ctx.fillRect(0,0,W,H);}
+  // Stars
   ctx.fillStyle='rgba(255,255,255,.4)';
   for(let i=0;i<40;i++){const sx=(i*73+11)%W,sy=(i*47+7)%H;ctx.fillRect(sx,sy,1,1);}
   // Particles
-  astParticles.forEach(p=>{const al=p.life/p.ml;ctx.fillStyle=`rgba(${p.r},${p.g},${p.b},${al})`;ctx.fillRect(p.x,p.y,p.sz,p.sz);});
-  // Gray rocks
+  astParticles.forEach(p=>{if(p.flash)return;const al=p.life/p.ml;ctx.fillStyle=`rgba(${p.r},${p.g},${p.b},${al})`;ctx.fillRect(p.x,p.y,p.sz,p.sz);});
+  // Rocks
   astRocks.forEach(r=>{
     ctx.save();ctx.translate(r.x,r.y);ctx.rotate(r.rot);
     ctx.beginPath();
     r.verts.forEach((v,i)=>{const px=Math.cos(v.a)*v.r,py=Math.sin(v.a)*v.r;i===0?ctx.moveTo(px,py):ctx.lineTo(px,py);});
     ctx.closePath();ctx.fillStyle='rgba(150,150,170,.07)';ctx.fill();
-    ctx.strokeStyle='rgba(190,190,215,.65)';ctx.lineWidth=1.5;ctx.stroke();
-    ctx.restore();
-  });
-  // Answer asteroids (purple glow + text)
-  astAnswerAsts.forEach(a=>{
-    if(!a.alive)return;
-    ctx.save();ctx.translate(a.x,a.y);ctx.rotate(a.rot);
-    ctx.beginPath();
-    a.verts.forEach((v,i)=>{const px=Math.cos(v.a)*v.r,py=Math.sin(v.a)*v.r;i===0?ctx.moveTo(px,py):ctx.lineTo(px,py);});
-    ctx.closePath();ctx.fillStyle='rgba(180,79,255,.1)';ctx.fill();
-    ctx.strokeStyle='rgba(180,79,255,.7)';ctx.lineWidth=2;ctx.stroke();ctx.restore();
-    ctx.save();ctx.translate(a.x,a.y);
-    ctx.fillStyle='rgba(255,255,255,.92)';ctx.textAlign='center';ctx.textBaseline='middle';
-    const words=a.label.split(' '),mw=a.size*1.3,lh=13;
-    let lines=[],ln='';ctx.font='bold 11px Nunito,sans-serif';
-    words.forEach(w=>{const t=ln?ln+' '+w:w;ctx.measureText(t).width>mw&&ln?(lines.push(ln),ln=w):(ln=t);});
-    if(ln)lines.push(ln);
-    lines.forEach((l,i)=>ctx.fillText(l,0,(i-(lines.length-1)/2)*lh));
-    ctx.restore();
+    ctx.strokeStyle='rgba(190,190,215,.65)';ctx.lineWidth=1.5;ctx.stroke();ctx.restore();
   });
   // Bullets
   ctx.shadowColor='#fff';ctx.shadowBlur=7;
@@ -940,63 +969,38 @@ function fireAst(){
 function checkAstHits(){
   astBullets.forEach(b=>{
     if(b.life<=0)return;
-    // Bullet hits gray rock → break it
     astRocks.forEach(r=>{
       if(!r.alive||b.life<=0)return;
       if(Math.hypot(b.x-r.x,b.y-r.y)<r.size){
-        b.life=0;r.alive=false;
-        astRockExplode(r);
+        b.life=0;r.alive=false;astRockExplode(r);
         astScore+=(r.level===3?100:r.level===2?50:20);updateAstUI();
-      }
-    });
-    // Bullet hits answer asteroid
-    astAnswerAsts.forEach(a=>{
-      if(!a.alive||b.life<=0)return;
-      if(Math.hypot(b.x-a.x,b.y-a.y)<a.size){
-        b.life=0;a.alive=false;astExplode(a);
-        if(a.isCorrect){
-          astScore+=200;updateAstUI();
-          trackQ(astCurrentQ.q,astCurrentQ.topic||'mixed','Asteroids',true);
-          astExplaining=true;
-          showNarrator(true,'Direct hit! Correct!',astCurrentQ.explain,'Next question!',()=>loadAstQ());
-        } else {
-          astLives=Math.max(0,astLives-1);updateAstUI();
-          trackQ(astCurrentQ.q,astCurrentQ.topic||'mixed','Asteroids',false);
-          if(astLives<=0){setTimeout(()=>endAsteroids(),600);return;}
-          astExplaining=true;
-          showNarrator(false,'Wrong answer!','That was a wrong answer. '+astCurrentQ.explain,'Keep firing!',()=>spawnAnswerAsts());
-        }
       }
     });
   });
 }
 
-// Check any asteroid (rock or answer) hitting the ship
 function checkAstCollisions(W,H){
   if(astInvTimer>0)return;
-  [...astRocks,...astAnswerAsts].forEach(obj=>{
-    if(!obj.alive)return;
-    if(Math.hypot(obj.x-astShip.x,obj.y-astShip.y)<obj.size*0.82+14){
-      astExplode(obj);obj.alive=false;
-      // Rocks still break into smaller pieces on collision
-      if(obj.level&&obj.level<3){astSpawnRock(W,H,obj.level+1,obj.x,obj.y);astSpawnRock(W,H,obj.level+1,obj.x,obj.y);}
+  astRocks.forEach(r=>{
+    if(!r.alive)return;
+    if(Math.hypot(r.x-astShip.x,r.y-astShip.y)<r.size*0.82+14){
+      r.alive=false;astRockParticles(r);
+      if(r.level<3){astSpawnRock(W,H,r.level+1,r.x,r.y);astSpawnRock(W,H,r.level+1,r.x,r.y);}
       astLives=Math.max(0,astLives-1);updateAstUI();
-      astInvTimer=180;// ~3s invincibility
+      astInvTimer=180;
       astShip.vx=0;astShip.vy=0;astShip.x=W/2;astShip.y=H/2;
       if(astLives<=0)setTimeout(()=>endAsteroids(),600);
     }
   });
 }
 
-// Gray rock: explode particles + spawn smaller rocks
 function astRockExplode(r){
   const W=astW,H=astH;
   if(r.level<3){astSpawnRock(W,H,r.level+1,r.x,r.y);astSpawnRock(W,H,r.level+1,r.x,r.y);}
-  for(let i=0;i<10;i++){const ang=Math.random()*Math.PI*2,sp=0.8+Math.random()*2;astParticles.push({x:r.x,y:r.y,vx:Math.cos(ang)*sp,vy:Math.sin(ang)*sp,life:18+(Math.random()*12|0),ml:30,r:190,g:190,b:215,sz:1.5+Math.random()*2});}
+  astRockParticles(r);
 }
-// Answer asteroid: purple explosion particles
-function astExplode(a){
-  for(let i=0;i<22;i++){const ang=Math.random()*Math.PI*2,sp=1+Math.random()*3.5;astParticles.push({x:a.x,y:a.y,vx:Math.cos(ang)*sp,vy:Math.sin(ang)*sp,life:25+(Math.random()*20|0),ml:45,r:180,g:79,b:255,sz:2+Math.random()*3});}
+function astRockParticles(r){
+  for(let i=0;i<10;i++){const ang=Math.random()*Math.PI*2,sp=0.8+Math.random()*2;astParticles.push({x:r.x,y:r.y,vx:Math.cos(ang)*sp,vy:Math.sin(ang)*sp,life:18+(Math.random()*12|0),ml:30,r:190,g:190,b:215,sz:1.5+Math.random()*2});}
 }
 
 function updateAstUI(){
@@ -1004,6 +1008,7 @@ function updateAstUI(){
   row.innerHTML='<span style="color:var(--text2);font-size:.8rem;margin-right:4px">Lives:</span>';
   for(let i=0;i<3;i++){const s=document.createElement('span');s.className='life-icon';s.textContent=i<astLives?'🚀':'💀';row.appendChild(s);}
   document.getElementById('ast-score-val').textContent=astScore.toLocaleString();
+  document.getElementById('ast-bomb-val').textContent=astBombs;
 }
 function astStop(){astRunning=false;if(astAnim){cancelAnimationFrame(astAnim);astAnim=null;}document.removeEventListener('keydown',astKD);document.removeEventListener('keyup',astKU);astKeys={};}
 function endAsteroids(){
@@ -1011,7 +1016,7 @@ function endAsteroids(){
   document.getElementById('ast-play').style.display='none';
   document.getElementById('ast-result').style.display='block';
   document.getElementById('ast-result-score').textContent=astScore.toLocaleString();
-  document.getElementById('ast-result-detail').textContent=astQNum+' questions answered, '+astScore.toLocaleString()+' points. '+(astScore>=1800?'Unreal accuracy! Physics ace!':astScore>=1000?'Great shooting! You know this material.':'Keep practicing — every miss teaches something!');
+  document.getElementById('ast-result-detail').textContent=astQNum+' questions answered, '+astScore.toLocaleString()+' points. '+(astScore>=2000?'Physics ace! Unreal accuracy!':astScore>=1000?'Great shooting! You know this material.':'Keep practicing — every miss teaches something!');
   if(astScore>=1000)fireConfetti();
   if(astScore>0)promptLBEntry('Asteroids',astScore);
 }
@@ -1028,6 +1033,10 @@ function setupAstTouch(){
   if(fe){const fresh=fe.cloneNode(true);fe.parentNode.replaceChild(fresh,fe);
     fresh.addEventListener('touchstart',e=>{e.preventDefault();fireAst();},{passive:false});
     fresh.addEventListener('mousedown',()=>fireAst());}
+  const fb=document.getElementById('ast-bomb-btn');
+  if(fb){const fresh=fb.cloneNode(true);fb.parentNode.replaceChild(fresh,fb);
+    fresh.addEventListener('touchstart',e=>{e.preventDefault();fireBomb();},{passive:false});
+    fresh.addEventListener('mousedown',()=>fireBomb());}
   let tx,ty;
   astCanvas.addEventListener('touchstart',e=>{tx=e.touches[0].clientX;ty=e.touches[0].clientY;},{passive:true});
   astCanvas.addEventListener('touchend',e=>{const dx=e.changedTouches[0].clientX-tx,dy=e.changedTouches[0].clientY-ty;if(Math.abs(dx)<18&&Math.abs(dy)<18)fireAst();},{passive:true});
